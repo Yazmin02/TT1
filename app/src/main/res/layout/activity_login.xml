@@ -9,41 +9,45 @@
 
     <ImageView
         android:id="@+id/profileImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/ic_user_avatar"
-        android:layout_gravity="center" />
+        android:layout_width="343dp"
+        android:layout_height="372dp"
+        android:layout_gravity=""
+        android:background="#00009688"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_launcher_foreground" />
 
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bienvenido/a"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:layout_gravity="center" />
+        android:text="@string/bienvenido_a"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/emailInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
-        android:layout_marginTop="32dp" />
+        android:hint="@string/email"
+        android:layout_marginTop="32dp"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/passwordInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign in"
+        android:text="@string/sign_in"
         android:backgroundTint="#3eb898"
         android:textColor="@android:color/white"
         android:layout_marginTop="32dp" />
