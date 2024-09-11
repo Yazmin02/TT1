@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">TT1</string>
     <string name="bienvenido_a">Bienvenido/a</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="sign_in">Sign in</string>
     <string name="todo">TODO</string>
+    <string name="email">Email</string>
+    <string name="sign_in">Sign in</string>
+    <string name="nav_header_image" />
+    <string name="usuario">Usuario</string>
+    <string name="aplicaci_n_de_gesti_n_de_tiempo">APLICACIÓN DE GESTIÓN DE TIEMPO</string>
+    <string name="tarea_pendiente">TAREA PENDIENTE</string>
+    <string name="evento_pendiente">EVENTO PENDIENTE</string>
 </resources>

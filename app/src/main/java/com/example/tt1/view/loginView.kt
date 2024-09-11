@@ -1,18 +1,35 @@
 package com.example.tt1.view
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import com.example.tt1.R
-import com.example.tt1.controller.LoginController
 
-class LoginView : AppCompatActivity() {
+class LoginView(private val activity: Activity) {
 
-    private lateinit var loginController: LoginController
+    private val emailInput: EditText = activity.findViewById(R.id.email_input)
+    private val passwordInput: EditText = activity.findViewById(R.id.password_input)
+    private val loginButton: Button = activity.findViewById(R.id.login_button)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+    fun getEmail(): String {
+        return emailInput.text.toString()
+    }
 
-        loginController = LoginController(this)
+    fun getPassword(): String {
+        return passwordInput.text.toString()
+    }
+
+    fun setLoginButtonClickListener(listener: View.OnClickListener) {
+        loginButton.setOnClickListener(listener)
+    }
+
+    fun showError(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun showSuccess(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 }

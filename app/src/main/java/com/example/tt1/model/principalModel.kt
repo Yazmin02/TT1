@@ -1,4 +1,5 @@
 package com.example.tt1.model
 
-class principalModel {
-}
+data class PrincipalModel(
+    val tareasPendientes: List<String> = listOf("TAREA PENDIENTE", "EVENTO PENDIENTE")
+)
