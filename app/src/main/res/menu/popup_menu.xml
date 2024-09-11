@@ -1,0 +1,9 @@
+<!-- res/menu/popup_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_add_task"
+        android:title="Agregar tarea" />
+    <item
+        android:id="@+id/action_add_event"
+        android:title="Agregar evento" />
+</menu>

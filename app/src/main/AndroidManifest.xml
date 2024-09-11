@@ -9,10 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TT1">
 
-        <!-- Declarar la actividad de login -->
+        <!-- Actividad inicial que se lanza al inicio -->
         <activity android:name=".MainActivity"
             android:exported="true">
-            <!-- Actividad inicial que se lanza al inicio -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -21,6 +20,9 @@
 
         <!-- Declarar la actividad principal -->
         <activity android:name=".PrincipalActivity" />
+
+        <!-- Declarar la actividad de calendario -->
+        <activity android:name=".CalendarActivity" />
 
     </application>
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="nav_calendar" type="id" />
+    <item name="titulo_text_view" type="id" />
+    <item name="tarea_pendiente_text_view" type="id" />
+    <item name="evento_pendiente_text_view" type="id" />
+    <item name="nav_inicio" type="id" />
+</resources>

@@ -3,7 +3,7 @@
     <string name="bienvenido_a">Bienvenido/a</string>
     <string name="todo">TODO</string>
     <string name="email">Email</string>
-    <string name="sign_in">Sign in</string>
+    <string name="sign_in">Inicia sesión</string>
     <string name="nav_header_image" />
     <string name="usuario">Usuario</string>
     <string name="aplicaci_n_de_gesti_n_de_tiempo">APLICACIÓN DE GESTIÓN DE TIEMPO</string>
@@ -11,4 +11,14 @@
     <string name="evento_pendiente">EVENTO PENDIENTE</string>
     <string name="navigation_drawer_open" />
     <string name="navigation_drawer_close" />
+    <string name="add_event_desc" />
+    <string name="ver">Ver</string>
+    <string name="next_month_desc">\n</string>
+    <string name="prev_month_desc" />
+    <string name="inicio">Inicio</string>
+    <string name="calendario">Calendario</string>
+    <string name="drawer_open" />
+    <string name="drawer_close" />
+    <string name="add_event" />
+    <string name="mes">MES</string>
 </resources>
