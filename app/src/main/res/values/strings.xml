@@ -9,4 +9,6 @@
     <string name="aplicaci_n_de_gesti_n_de_tiempo">APLICACIÓN DE GESTIÓN DE TIEMPO</string>
     <string name="tarea_pendiente">TAREA PENDIENTE</string>
     <string name="evento_pendiente">EVENTO PENDIENTE</string>
+    <string name="navigation_drawer_open" />
+    <string name="navigation_drawer_close" />
 </resources>
