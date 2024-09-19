@@ -21,4 +21,6 @@
     <string name="drawer_close" />
     <string name="add_event" />
     <string name="mes">MES</string>
+    <string name="guardar_tarea" />
+    <string name="agregar_tarea">\n</string>
 </resources>

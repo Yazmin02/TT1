@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#61AED1"
+            android:background="#B1DAEC"
             app:title="Gestión de tiempo"
             app:titleTextColor="#FFFFFF"
             app:layout_constraintTop_toTopOf="parent"

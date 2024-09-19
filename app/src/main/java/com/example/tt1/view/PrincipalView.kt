@@ -3,6 +3,7 @@ package com.example.tt1.view
 import android.app.Activity
 import android.widget.TextView
 import com.example.tt1.R
+import com.example.tt1.model.Tarea
 
 class PrincipalView(private val activity: Activity) {
 
@@ -14,11 +15,11 @@ class PrincipalView(private val activity: Activity) {
         tituloTextView.text = titulo
     }
 
-    fun mostrarTareaPendiente(tarea: String) {
-        tareaPendienteTextView.text = tarea
+    fun mostrarTareaPendiente(tarea: Tarea) {
+        tareaPendienteTextView.text = tarea.toString()
     }
 
-    fun mostrarEventoPendiente(evento: String) {
-        eventoPendienteTextView.text = evento
+    fun mostrarEventoPendiente(evento: Tarea) {
+        eventoPendienteTextView.text = evento.toString()
     }
 }

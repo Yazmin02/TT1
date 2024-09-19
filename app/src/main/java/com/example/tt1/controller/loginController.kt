@@ -16,10 +16,22 @@ class LoginController(
     }
 
     private fun handleLogin() {
+        // Obtener los valores de los campos de email y contraseña desde la vista
         model.email = view.getEmail()
         model.password = view.getPassword()
 
-        // Permitir inicio de sesión sin validar email o contraseña
+        // Validar si los campos están vacíos
+        if (model.email.isEmpty()) {
+            view.showError("El campo de correo no puede estar vacío.")
+            return
+        }
+
+        if (model.password.isEmpty()) {
+            view.showError("El campo de contraseña no puede estar vacío.")
+            return
+        }
+
+        // Si ambos campos están completos, permitir el inicio de sesión
         view.showSuccess("Inicio de sesión exitoso.")
         onLoginSuccessListener?.invoke()  // Notificar el éxito del login
     }

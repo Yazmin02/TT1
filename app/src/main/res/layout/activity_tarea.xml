@@ -1,39 +1,129 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:background="#FFFFFF"
+    tools:context=".TareaActivity">
 
-    <TextView
-        android:id="@+id/a_tarea_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Agregar Tarea"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:paddingBottom="20dp"/>
-
-    <EditText
-        android:id="@+id/task_name_input"
+    <!-- Contenido principal -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nombre de la Tarea"
-        android:padding="10dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/task_description_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Descripción"
-        android:padding="10dp"/>
+        <!-- Barra de menú (Toolbar) -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#B1DAEC"
+            app:title="Agregar Tarea"
+            app:titleTextColor="#FFFFFF"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:navigationIcon="@drawable/ic_menu" />
 
-    <Button
-        android:id="@+id/save_task_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Guardar Tarea"
-        android:layout_marginTop="20dp"/>
-</LinearLayout>
+        <!-- Contenido de la pantalla Agregar Tarea -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Campo de Título -->
+            <EditText
+                android:id="@+id/etTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Título"
+                android:padding="8dp"
+                android:layout_marginTop="16dp"/>
+
+            <!-- Campo de Descripción -->
+            <EditText
+                android:id="@+id/etDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Descripción"
+                android:padding="8dp"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Time Picker para seleccionar la hora de inicio -->
+
+            <!-- Campo de Fecha -->
+            <TextView
+                android:id="@+id/dateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha de Inicio"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/et_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="MM-DD-YYYY"
+                android:focusable="false"
+                android:drawableEnd="@drawable/ic_calendar"
+                android:inputType="date"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Campo de Fecha -->
+            <TextView
+                android:id="@+id/dateLabel2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha de Vencimiento"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/et_date2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="MM-DD-YYYY"
+                android:focusable="false"
+                android:drawableEnd="@drawable/ic_calendar"
+                android:inputType="date"
+                android:layout_marginBottom="16dp" />
+            <!-- Spinner de Etiqueta -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Etiqueta"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp" />
+
+            <Spinner
+                android:id="@+id/spinnerEtiqueta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Botón para Guardar la Tarea -->
+            <ImageButton
+                android:id="@+id/btnGuardarTarea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_check_back"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/guardar_tarea"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Menú lateral (NavigationView) -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#FFFFFF"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

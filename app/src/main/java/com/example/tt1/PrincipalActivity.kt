@@ -17,17 +17,14 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
 
+        // Configuración de la Toolbar
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        // Configuración del DrawerLayout y NavigationView
         drawerLayout = findViewById(R.id.drawer_layout)
-
         val toggle = ActionBarDrawerToggle(
-            this,
-            drawerLayout,
-            toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
+            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -36,6 +33,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         navView.setNavigationItemSelectedListener(this)
     }
 
+    // Maneja la selección de elementos en el menú lateral
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_calendar -> {
@@ -43,15 +41,10 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 val intent = Intent(this, CalendarActivity::class.java)
                 startActivity(intent)
             }
-            R.id.nav_profile -> {
-                // Redirige a la actividad de tareas
-                // val intent = Intent(this, TareasActivity::class.java)
-                // startActivity(intent)
-            }
-            R.id.nav_settings -> {
-                // Redirige a la actividad de eventos
-                // val intent = Intent(this, EventosActivity::class.java)
-                // startActivity(intent)
+            R.id.nav_tareas -> {
+                // Redirige a la actividad de lista de tareas
+                val intent = Intent(this, ListaActivity::class.java)
+                startActivity(intent)
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

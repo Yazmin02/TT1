@@ -18,7 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#61AED1"
+            android:background="#B1DAEC"
             app:title="Calendario"
             app:titleTextColor="#FFFFFF"
             android:elevation="4dp"
@@ -112,11 +112,11 @@
             android:layout_height="73dp"
             android:layout_gravity="bottom|end"
             android:layout_margin="20dp"
-            android:background="@drawable/round_button_background"
+            android:background="@drawable/ic_add"
             android:drawableStart="@drawable/ic_add"
             android:drawablePadding="8dp"
             android:padding="12dp"
-            android:textColor="#FFFFFF"
+            android:textColor="#0000"
             android:textSize="16sp" />
 
     </LinearLayout>

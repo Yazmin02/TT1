@@ -59,7 +59,9 @@ class CalendarActivity : AppCompatActivity() {
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.action_add_task -> {
-                    // Lógica para agregar tarea
+                    // Redirigir a la pantalla de tarea
+                    val intent = Intent(this, TareaActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.action_add_event -> {
