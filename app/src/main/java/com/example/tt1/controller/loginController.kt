@@ -1,8 +1,10 @@
-package com.example.tt1.controller
-
 import android.view.View
 import com.example.tt1.model.LoginModel
 import com.example.tt1.view.LoginView
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import org.json.JSONObject
+import java.io.IOException
 
 class LoginController(
     private val model: LoginModel,
@@ -31,14 +33,39 @@ class LoginController(
             return
         }
 
-        // Si ambos campos están completos, permitir el inicio de sesión
-        view.showSuccess("Inicio de sesión exitoso.")
-        onLoginSuccessListener?.invoke()  // Notificar el éxito del login
-    }
+        // Crear un cliente HTTP para enviar la solicitud a la API
+        val client = OkHttpClient()
+        val url = "http://localhost:5000/login" // Cambia esto según tu configuración
 
-    private var onLoginSuccessListener: (() -> Unit)? = null
+        val json = JSONObject()
+        json.put("email", model.email)
+        json.put("password", model.password)
 
-    fun setOnLoginSuccessListener(listener: () -> Unit) {
-        onLoginSuccessListener = listener
+        val body = RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), json.toString())
+        val request = Request.Builder()
+            .url(url)
+            .post(body)
+            .build()
+
+        // Enviar la solicitud
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                // Manejar error de red
+                view.showError("Error de conexión")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful) {
+                    // Leer la respuesta del servidor
+                    val responseBody = response.body?.string()
+                    val jsonResponse = JSONObject(responseBody)
+
+                    // Mostrar el éxito o manejar el idUsuario si es necesario
+                    view.showSuccess(jsonResponse.getString("message"))
+                } else {
+                    view.showError("Correo o contraseña incorrectos")
+                }
+            }
+        })
     }
 }
