@@ -1,71 +1,40 @@
-import android.view.View
+package com.example.tt1.controller
+
+import android.content.Intent
+import com.example.tt1.MainActivity
+import com.example.tt1.PrincipalActivity
 import com.example.tt1.model.LoginModel
-import com.example.tt1.view.LoginView
-import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import org.json.JSONObject
-import java.io.IOException
+import com.example.tt1.model.UsuarioRepository
 
-class LoginController(
-    private val model: LoginModel,
-    private val view: LoginView
-) {
+class LoginController(private val activity: MainActivity) {
+    private val usuariosRepository = UsuarioRepository()
 
-    init {
-        view.setLoginButtonClickListener(View.OnClickListener {
-            handleLogin()
-        })
-    }
+    fun handleLogin(email: String, password: String) {
+        val loginModel = LoginModel(email, password)
 
-    private fun handleLogin() {
-        // Obtener los valores de los campos de email y contraseña desde la vista
-        model.email = view.getEmail()
-        model.password = view.getPassword()
-
-        // Validar si los campos están vacíos
-        if (model.email.isEmpty()) {
-            view.showError("El campo de correo no puede estar vacío.")
+        // Validar el email y la contraseña
+        if (!loginModel.isValidEmail()) {
+            activity.showError("Por favor, introduce un correo electrónico válido.")
             return
         }
 
-        if (model.password.isEmpty()) {
-            view.showError("El campo de contraseña no puede estar vacío.")
+        if (!loginModel.isValidPassword()) {
+            activity.showError("La contraseña debe tener al menos 6 caracteres.")
             return
         }
 
-        // Crear un cliente HTTP para enviar la solicitud a la API
-        val client = OkHttpClient()
-        val url = "http://localhost:5000/login" // Cambia esto según tu configuración
+        // Lógica de autenticación
+        val userId = usuariosRepository.authenticate(email, password)
+        if (userId != null) {
+            loginModel.idUsuario = userId
+            activity.showMessage("Inicio de sesión exitoso")
 
-        val json = JSONObject()
-        json.put("email", model.email)
-        json.put("password", model.password)
-
-        val body = RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), json.toString())
-        val request = Request.Builder()
-            .url(url)
-            .post(body)
-            .build()
-
-        // Enviar la solicitud
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                // Manejar error de red
-                view.showError("Error de conexión")
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
-                    // Leer la respuesta del servidor
-                    val responseBody = response.body?.string()
-                    val jsonResponse = JSONObject(responseBody)
-
-                    // Mostrar el éxito o manejar el idUsuario si es necesario
-                    view.showSuccess(jsonResponse.getString("message"))
-                } else {
-                    view.showError("Correo o contraseña incorrectos")
-                }
-            }
-        })
+            // Navegar a la pantalla principal (PrincipalActivity)
+            val intent = Intent(activity, PrincipalActivity::class.java)
+            activity.startActivity(intent)
+            activity.finish() // Cierra esta actividad
+        } else {
+            activity.showError("Credenciales incorrectas")
+        }
     }
 }

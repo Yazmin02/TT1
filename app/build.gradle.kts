@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+
 }
 
 android {
@@ -36,8 +37,10 @@ android {
 }
 
 dependencies {
-    implementation("com.squareup.okhttp3:okhttp:4.9.3")
-    implementation("org.json:json:20210307")
+    implementation(libs.okhttp)
+    implementation(libs.json)
+    implementation (libs.androidx.room.runtime)
+     implementation (libs.androidx.room.ktx)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

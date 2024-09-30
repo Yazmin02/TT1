@@ -5,4 +5,11 @@
     <item name="tarea_pendiente_text_view" type="id" />
     <item name="evento_pendiente_text_view" type="id" />
     <item name="nav_inicio" type="id" />
+    <item name="recyclerViewTareas" type="id" />
+    <item name="loginButton" type="id" />
+    <item name="passwordEditText" type="id" />
+    <item name="emailEditText" type="id" />
+    <item name="recyclerView" type="id" />
+    <item name="txtDescripcion" type="id" />
+    <item name="txtTitulo" type="id" />
 </resources>

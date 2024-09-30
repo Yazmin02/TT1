@@ -1,6 +1,6 @@
 package com.example.tt1.model
 
-data class UsuarioModel(
+data class Usuario(
     val idUsuario: Int,
     val nUsuario: String,
     val correoE: String,

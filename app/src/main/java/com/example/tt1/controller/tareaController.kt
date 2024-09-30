@@ -4,9 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tt1.R
 import com.example.tt1.model.TareaModel
+import com.example.tt1.model.TareaRepository
 import com.example.tt1.view.TareaView
 
-class AgregarTareaController : AppCompatActivity() {
+class TareaController(tareaRepository: TareaRepository) : AppCompatActivity() {
 
     private lateinit var tareaView: TareaView<Any?>
     private val tareaModel = TareaModel()

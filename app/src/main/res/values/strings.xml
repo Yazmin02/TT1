@@ -23,4 +23,6 @@
     <string name="mes">MES</string>
     <string name="guardar_tarea" />
     <string name="agregar_tarea">\n</string>
+    <string name="register">\n</string>
+    <string name="bienvenido_a_registro" />
 </resources>

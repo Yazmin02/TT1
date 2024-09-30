@@ -1,6 +1,6 @@
 package com.example.tt1.model
 
-data class Tarea(
+data class listaTarea(
     val idTarea: Int,
     val titulo: String,
     val desc: String,
@@ -9,3 +9,4 @@ data class Tarea(
     val etiqueta: String,
     val idUsuario: Int // relación con la tabla Usuario
 )
+
