@@ -1,40 +1,27 @@
 package com.example.tt1.controller
 
-import android.content.Intent
-import com.example.tt1.MainActivity
-import com.example.tt1.PrincipalActivity
-import com.example.tt1.model.LoginModel
+import com.example.tt1.model.Usuario
 import com.example.tt1.model.UsuarioRepository
 
-class LoginController(private val activity: MainActivity) {
-    private val usuariosRepository = UsuarioRepository()
+class UsuarioController(private val usuarioRepo: UsuarioRepository) {
 
-    fun handleLogin(email: String, password: String) {
-        val loginModel = LoginModel(email, password)
+    // Método para autenticar un usuario
+    fun authenticate(correoE: String, contraseña: String): Int? {
+        // Llama al método authenticate del repositorio
+        return usuarioRepo.authenticate(correoE, contraseña)
+    }
 
-        // Validar el email y la contraseña
-        if (!loginModel.isValidEmail()) {
-            activity.showError("Por favor, introduce un correo electrónico válido.")
-            return
-        }
+    // Método para agregar un nuevo usuario
+    fun agregarUsuario(nombre: String, correoE: String, contraseña: String) {
+        // Crea una nueva instancia de Usuario
+        val usuario = Usuario(nUsuario = nombre, email = correoE, password = contraseña)
+        // Llama al método agregarUsuario del repositorio
+        usuarioRepo.agregarUsuario(usuario)
+    }
 
-        if (!loginModel.isValidPassword()) {
-            activity.showError("La contraseña debe tener al menos 6 caracteres.")
-            return
-        }
 
-        // Lógica de autenticación
-        val userId = usuariosRepository.authenticate(email, password)
-        if (userId != null) {
-            loginModel.idUsuario = userId
-            activity.showMessage("Inicio de sesión exitoso")
-
-            // Navegar a la pantalla principal (PrincipalActivity)
-            val intent = Intent(activity, PrincipalActivity::class.java)
-            activity.startActivity(intent)
-            activity.finish() // Cierra esta actividad
-        } else {
-            activity.showError("Credenciales incorrectas")
-        }
+    // Método para obtener todos los usuarios (opcional)
+    fun obtenerUsuarios(): List<Usuario> {
+        return usuarioRepo.obtenerUsuarios()
     }
 }

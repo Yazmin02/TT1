@@ -16,7 +16,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
     }
 
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS Usuario (nUsuario VARCHAR NOT NULL, correoE VARCHAR NOT NULL, contraseña VARCHAR NOT NULL, idUsuario INTEGER NOT NULL PRIMARY KEY);")
+        db.execSQL("CREATE TABLE IF NOT EXISTS Usuario (idUsuario INTEGER PRIMARY KEY AUTOINCREMENT, nUsuario VARCHAR NOT NULL, correoE VARCHAR NOT NULL, contraseña VARCHAR NOT NULL);")
         db.execSQL("CREATE TABLE IF NOT EXISTS Colaboradores (idUsuario INTEGER NOT NULL, idTareaC INTEGER NOT NULL, PRIMARY KEY (idUsuario, idTareaC), FOREIGN KEY (idTareaC) REFERENCES TareaColab (idTareaC), FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario));")
         db.execSQL("CREATE TABLE IF NOT EXISTS Etiqueta (idEtiqueta INTEGER NOT NULL PRIMARY KEY, nombre CHAR NOT NULL);")
         db.execSQL("CREATE TABLE IF NOT EXISTS Evento (idEvento INTEGER NOT NULL PRIMARY KEY, titulo VARCHAR NOT NULL, descripcion TEXT, fInicio DATE NOT NULL, fVencimiento DATE NOT NULL, lugar VARCHAR NOT NULL);")
@@ -28,7 +28,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        // Aquí puedes manejar actualizaciones de la base de datos si es necesario
         db.execSQL("DROP TABLE IF EXISTS Usuario")
         db.execSQL("DROP TABLE IF EXISTS Colaboradores")
         db.execSQL("DROP TABLE IF EXISTS Etiqueta")

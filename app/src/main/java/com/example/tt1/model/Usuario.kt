@@ -1,8 +1,8 @@
 package com.example.tt1.model
 
 data class Usuario(
-    val idUsuario: Int,
+    val idUsuario: Int = 0, // Se asigna automáticamente al insertar en la base de datos
     val nUsuario: String,
-    val correoE: String,
-    val contraseña: String
+    val email: String,
+    val password: String
 )

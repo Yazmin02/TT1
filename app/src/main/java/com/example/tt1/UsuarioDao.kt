@@ -14,3 +14,4 @@ interface UsuarioDao {
     @Query("SELECT * FROM Usuario WHERE email = :email AND password = :password LIMIT 1")
     suspend fun authenticate(email: String, password: String): Usuario?
 }
+
