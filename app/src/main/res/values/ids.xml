@@ -12,4 +12,10 @@
     <item name="recyclerView" type="id" />
     <item name="txtDescripcion" type="id" />
     <item name="txtTitulo" type="id" />
+    <item name="etFechaInicio" type="id" />
+    <item name="etFechaVencimiento" type="id" />
+    <item name="btnGuardar" type="id" />
+    <item name="btnFechaVencimiento" type="id" />
+    <item name="btnFechaInicio" type="id" />
+    <item name="tareasContainer" type="id" />
 </resources>

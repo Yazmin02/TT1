@@ -8,11 +8,10 @@ import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Spinner
-import android.widget.TextView
 import com.example.tt1.R
-import java.util.*
+import java.util.Calendar
 
-class TareaView<TimePicker>(private val rootView: View) {
+class TareaView(private val rootView: View) {
 
     private val tituloEditText: EditText = rootView.findViewById(R.id.etTitulo)
     private val descripcionEditText: EditText = rootView.findViewById(R.id.etDescripcion)
@@ -50,7 +49,7 @@ class TareaView<TimePicker>(private val rootView: View) {
 
     fun obtenerFecha(): String = fechaEditText.text.toString()
 
-
+    fun obtenerEtiqueta(): Int = spinnerCategorias.selectedItemPosition // Cambia esto según cómo manejes las etiquetas
 
     fun setOnGuardarTareaListener(listener: () -> Unit) {
         rootView.findViewById<ImageButton>(R.id.btnGuardarTarea).setOnClickListener {
