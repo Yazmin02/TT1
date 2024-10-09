@@ -1,55 +1,74 @@
-// ListaTareasActivity.kt
 package com.example.tt1
 
-import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.widget.LinearLayout
-import android.widget.TextView
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.tt1.model.Tarea
+import com.google.android.material.navigation.NavigationView
 
 class ListaTareasActivity : AppCompatActivity() {
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var tareaAdapter: TareaAdapter
     private lateinit var tareaRepository: TareaRepository
-    private lateinit var tareasContainer: LinearLayout
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista)
 
-        // Inicializar el repositorio
-        tareaRepository = TareaRepository(this)
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        val navigationView: NavigationView = findViewById(R.id.nav_view)
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
 
-        // Obtener el ID del usuario que ha iniciado sesión
-        val idUsuario = 1 // Reemplaza esto con la lógica para obtener el ID del usuario
+        setSupportActionBar(toolbar)
 
-        // Referencia al contenedor de tareas
-        tareasContainer = findViewById(R.id.tareasContainer)
+        // Configuración del DrawerLayout y el ActionBarToggle
+        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
-        // Obtener las tareas del repositorio
-        val tareas = tareaRepository.obtenerTareasPorUsuario(idUsuario)
-
-        // Mostrar cada tarea en el contenedor
-        for (tarea in tareas) {
-            agregarTareaALayout(tarea)
+        // Manejo de clics en el menú
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_inicio -> {
+                    startActivity(Intent(this, PrincipalActivity::class.java))
+                    drawerLayout.closeDrawers()
+                    true
+                }
+                R.id.nav_calendar -> {
+                    startActivity(Intent(this, CalendarActivity::class.java))
+                    drawerLayout.closeDrawers()
+                    true
+                }
+                R.id.nav_task -> {
+                    // No hacer nada, ya estamos en esta actividad
+                    drawerLayout.closeDrawers()
+                    true
+                }
+                else -> false
+            }
         }
+
+        // Inicializa la base de datos y el repositorio
+        val dbHelper = DatabaseHelper(this)
+        tareaRepository = TareaRepository(dbHelper)
+
+        // Configura el RecyclerView
+        recyclerView = findViewById(R.id.recyclerViewTareas)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        // Carga las tareas y configura el adapter
+        cargarTareas()
     }
 
-    private fun agregarTareaALayout(tarea: Tarea) {
-        // Inflar el layout para una tarea
-        val tareaView = LayoutInflater.from(this).inflate(R.layout.activity_lista, null)
-
-        // Referencias a los elementos del layout inflado
-        val tvTituloTarea: TextView = tareaView.findViewById(R.id.tvTituloTarea)
-        val tvDescripcionTarea: TextView = tareaView.findViewById(R.id.tvDescripcionTarea)
-
-        // Configurar los datos de la tarea
-        tvTituloTarea.text = tarea.titulo
-        tvDescripcionTarea.text = tarea.descripcion
-
-        // Agregar la vista de la tarea al contenedor
-        tareasContainer.addView(tareaView)
+    private fun cargarTareas() {
+        val tareas: List<Tarea> = tareaRepository.obtenerTareas()
+        tareaAdapter = TareaAdapter(tareas)
+        recyclerView.adapter = tareaAdapter
     }
 }

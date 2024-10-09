@@ -3,6 +3,10 @@
     package="com.example.tt1">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+
 
     <application
         android:allowBackup="true"
@@ -34,7 +38,9 @@
         <activity android:name=".TareaActivity" />
 
         <!-- Declarar la actividad de lista -->
-        <activity android:name=".ListaActivity"/>
+        <activity android:name=".ListaTareasActivity"/>
+        <receiver android:name=".ReminderReceiver" />
+
 
     </application>
 

@@ -51,8 +51,6 @@
                 android:padding="8dp"
                 android:layout_marginTop="8dp"/>
 
-            <!-- Time Picker para seleccionar la hora de inicio -->
-
             <!-- Campo de Fecha -->
             <TextView
                 android:id="@+id/dateLabel"
@@ -72,7 +70,7 @@
                 android:inputType="date"
                 android:layout_marginBottom="16dp" />
 
-            <!-- Campo de Fecha -->
+            <!-- Campo de Fecha de Vencimiento -->
             <TextView
                 android:id="@+id/dateLabel2"
                 android:layout_width="wrap_content"
@@ -90,6 +88,7 @@
                 android:drawableEnd="@drawable/ic_calendar"
                 android:inputType="date"
                 android:layout_marginBottom="16dp" />
+
             <!-- Spinner de Etiqueta -->
             <TextView
                 android:layout_width="wrap_content"
@@ -104,15 +103,39 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"/>
 
+            <!-- CheckBox para Recordatorio -->
+            <CheckBox
+                android:id="@+id/cbRecordatorio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Activar Recordatorio"
+                android:layout_marginTop="16dp"/>
+
+            <!-- Time Picker para seleccionar la hora -->
+            <TextView
+                android:id="@+id/timeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hora del Recordatorio"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp" />
+
+            <TimePicker
+                android:id="@+id/timePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone" />
+
             <!-- Botón para Guardar la Tarea -->
             <ImageButton
                 android:id="@+id/btnGuardarTarea"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_check_back"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:contentDescription="@string/guardar_tarea"/>
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/guardar_tarea"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -125,5 +148,4 @@
         android:background="#FFFFFF"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu" />
-
 </androidx.drawerlayout.widget.DrawerLayout>

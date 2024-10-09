@@ -1,58 +1,72 @@
 package com.example.tt1
 
-import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tt1.controller.RegisterController
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var nUsuarioInput: EditText
+    private lateinit var usernameInput: EditText
     private lateinit var emailInput: EditText
     private lateinit var passwordInput: EditText
+    private lateinit var confirmPasswordInput: EditText
     private lateinit var registerButton: Button
+    private lateinit var loginLink: TextView
+    private lateinit var registerController: RegisterController
 
-    @SuppressLint("CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register) // Asegúrate de que este sea el layout correcto
+        setContentView(R.layout.activity_register)
 
-        // Inicializa las vistas
-        nUsuarioInput = findViewById(R.id.email_input) // Corrige el ID
+        // Inicializa los elementos de la interfaz
+        usernameInput = findViewById(R.id.username_input)
         emailInput = findViewById(R.id.email_input)
         passwordInput = findViewById(R.id.password_input)
+        confirmPasswordInput = findViewById(R.id.confirm_password_input)
         registerButton = findViewById(R.id.register_button)
+        loginLink = findViewById(R.id.login_link)
 
-        // Configura el botón de registro
+        registerController = RegisterController(this)
+
+        // Manejar el clic del botón de registro
         registerButton.setOnClickListener {
-            val nUsuario = nUsuarioInput.text.toString().trim()
+            val username = usernameInput.text.toString().trim()
             val email = emailInput.text.toString().trim()
-            val password = passwordInput.text.toString().trim()
+            val password = passwordInput.text.toString()
+            val confirmPassword = confirmPasswordInput.text.toString()
 
-            if (nUsuario.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-                val registerController = RegisterController(this)
-                registerController.registerUser(nUsuario, email, password,
-                    onSuccess = {
-                        showMessage("Registro exitoso. Bienvenido, $nUsuario!")
-                    },
-                    onError = { errorMessage ->
-                        showError(errorMessage)
-                    }
-                )
-            } else {
-                showError("Por favor, completa todos los campos.")
+            // Validar que las contraseñas coincidan
+            if (password != confirmPassword) {
+                Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            // Realizar el registro del usuario
+            registerController.registerUser(username, email, password,
+                onSuccess = {
+                    // Redirigir a la actividad de inicio
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish() // Cierra la actividad de registro
+                },
+                onError = { errorMessage ->
+                    // Muestra un mensaje de error
+                    Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+                }
+            )
         }
-    }
 
-    private fun showError(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        // Manejar el clic en el enlace de inicio de sesión
+        loginLink.setOnClickListener {
+            // Redirigir a la actividad de inicio de sesión
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish() // Cierra la actividad de registro
+        }
     }
 }

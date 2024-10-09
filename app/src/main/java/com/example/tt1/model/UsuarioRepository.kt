@@ -13,7 +13,7 @@ class UsuarioRepository(private val dbHelper: DatabaseHelper) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
         val values = ContentValues().apply {
             put("nUsuario", usuario.nUsuario)
-            put("correoE", usuario.email)
+            put("correoE", usuario.correoE)
             put("contraseña", usuario.password)
         }
         db.insert("Usuario", null, values)

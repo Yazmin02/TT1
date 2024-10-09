@@ -8,9 +8,8 @@
     <!-- Imagen de usuario -->
     <ImageView
         android:id="@+id/register_image"
-        android:layout_width="361dp"
-        android:layout_height="289dp"
-        android:layout_marginTop="0dp"
+        android:layout_width="281dp"
+        android:layout_height="199dp"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/todo"
         android:src="@drawable/ic_user" />
@@ -22,21 +21,44 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/register_image"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
         android:text="@string/bienvenido_a_registro"
         android:textSize="40sp"
         android:textStyle="bold"
         android:textColor="#2C3E50"
-        android:fontFamily="sans-serif-medium"/>
+        android:fontFamily="sans-serif-medium" />
+
+    <!-- Etiqueta de nombre de usuario -->
+    <TextView
+        android:id="@+id/username_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/welcome_text"
+        android:layout_alignParentStart="true"
+        android:text="Nombre de usuario"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#2C3E50" />
+
+    <!-- Campo de entrada de nombre de usuario -->
+    <EditText
+        android:id="@+id/username_input"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/username_label"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edittext_background"
+        android:hint="Nombre de usuario"
+        android:padding="12dp"
+        android:textColor="#000"
+        android:textSize="25sp" />
 
     <!-- Etiqueta de correo -->
     <TextView
         android:id="@+id/email_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/welcome_text"
+        android:layout_below="@id/username_input"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp"
         android:text="Correo"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -62,7 +84,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/email_input"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp"
         android:text="Contraseña"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -89,7 +110,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/password_input"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp"
         android:text="Confirmar Contraseña"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -116,7 +136,7 @@
         android:layout_height="66dp"
         android:layout_below="@id/confirm_password_input"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="81dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="#3EB898"
         android:elevation="5dp"
         android:text="@string/register"
@@ -131,7 +151,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/register_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="16dp"
         android:text="¿Ya tienes cuenta? Inicia sesión"
         android:textColor="#2C3E50"
         android:textSize="16sp"

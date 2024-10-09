@@ -1,12 +1,17 @@
 package com.example.tt1.controller
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tt1.R
 import com.example.tt1.TareaRepository
 import com.example.tt1.model.Tarea
 import com.example.tt1.model.TareaModel
 import com.example.tt1.view.TareaView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class TareaController(private val tareaRepository: TareaRepository) : AppCompatActivity() {
 
@@ -37,16 +42,23 @@ class TareaController(private val tareaRepository: TareaRepository) : AppCompatA
 
         // Aquí debes manejar la lógica para obtener idUsuario y idEtiqueta si es necesario
         val idUsuario = 1 // Cambia esto según tu lógica de usuario
-        val idEtiqueta = tareaView.obtenerEtiqueta() // Suponiendo que tienes un método para obtener la etiqueta seleccionada
+        val idEtiqueta = tareaView.obtenerEtiqueta()
 
         // Lógica para validar datos y guardar la tarea
         if (titulo.isNotEmpty() && descripcion.isNotEmpty() && fecha.isNotEmpty()) {
-            // Crea la tarea y la agrega al repositorio
-            val tarea = Tarea(0, titulo, descripcion, fecha, fecha, idUsuario, idEtiqueta)
-            tareaRepository.agregarTarea(tarea)
-            // Muestra mensaje de éxito
+            // Crea la tarea
+            val tarea = Tarea(0, titulo, descripcion, fecha, fecha, idEtiqueta, idUsuario)
+
+            // Guardado asíncrono
+            CoroutineScope(Dispatchers.IO).launch {
+                tareaRepository.agregarTarea(tarea) // Cambiado a insertarTarea
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@TareaController, "Tarea guardada exitosamente", Toast.LENGTH_SHORT).show()
+                }
+            }
         } else {
             // Muestra mensaje de error
+            Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
         }
     }
 }

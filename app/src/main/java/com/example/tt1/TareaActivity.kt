@@ -1,8 +1,14 @@
 package com.example.tt1
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -15,30 +21,36 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.tt1.model.Tarea
 import com.google.android.material.navigation.NavigationView
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class TareaActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var etTitulo: EditText
     private lateinit var etDescripcion: EditText
-    private lateinit var et_date: EditText
-    private lateinit var et_date2: EditText
+    private lateinit var etDateInicio: EditText
+    private lateinit var etDateVencimiento: EditText
     private lateinit var spinnerEtiqueta: Spinner
+    private lateinit var tareaDao: TareaDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tarea) // Asegúrate de que este sea el nombre correcto de tu layout
+        setContentView(R.layout.activity_tarea)
+
+        createNotificationChannel()
 
         // Inicializar los campos
         etTitulo = findViewById(R.id.etTitulo)
         etDescripcion = findViewById(R.id.etDescripcion)
-        et_date = findViewById(R.id.et_date)
-        et_date2 = findViewById(R.id.et_date2)
+        etDateInicio = findViewById(R.id.et_date)
+        etDateVencimiento = findViewById(R.id.et_date2)
         spinnerEtiqueta = findViewById(R.id.spinnerEtiqueta)
 
         // Inicializar el Spinner con las etiquetas
-        val etiquetas = listOf("Trabajo", "Personal", "Urgente", "Otras")
+        val etiquetas = listOf("Escuela", "Trabajo", "Ocio")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, etiquetas)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerEtiqueta.adapter = adapter
@@ -53,66 +65,123 @@ class TareaActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
-        // DatePicker para la fecha de inicio
-        et_date.setOnClickListener {
-            showDatePicker { date -> et_date.setText(date) }
+        setupDatePickers()
+
+        tareaDao = TareaDao(DatabaseHelper(this).writableDatabase)
+
+        findViewById<ImageButton>(R.id.btnGuardarTarea).setOnClickListener {
+            guardarTarea()
         }
 
-        // DatePicker para la fecha de vencimiento
-        et_date2.setOnClickListener {
-            showDatePicker { date -> et_date2.setText(date) }
-        }
-
-        // Botón para guardar la tarea
-        val btnGuardarTarea: ImageButton = findViewById(R.id.btnGuardarTarea)
-        btnGuardarTarea.setOnClickListener {
-            val titulo = etTitulo.text.toString()
-            val descripcion = etDescripcion.text.toString()
-            val fechaInicio = et_date.text.toString()
-            val fechaVencimiento = et_date2.text.toString()
-            val etiquetaSeleccionada = spinnerEtiqueta.selectedItem.toString()
-
-            if (titulo.isEmpty() || descripcion.isEmpty() || fechaInicio.isEmpty() || fechaVencimiento.isEmpty()) {
-                Toast.makeText(this, "Por favor, completa todos los campos.", Toast.LENGTH_SHORT).show()
-            } else {
-                // Aquí puedes añadir tu lógica para guardar la tarea
-                Toast.makeText(this, "Tarea guardada: $titulo", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        // Configurar el Toolbar
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
-
-        // Configurar el botón de navegación
-        toolbar.setNavigationOnClickListener {
-            val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-            drawerLayout.openDrawer(GravityCompat.START)
-        }
+        setupToolbar()
 
         // Inicializar NavigationView
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
     }
 
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                "reminder_channel",
+                "Recordatorios",
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = "Canal para recordatorios de tareas"
+            }
+
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun setupDatePickers() {
+        etDateInicio.setOnClickListener {
+            showDatePicker { date -> etDateInicio.setText(date) }
+        }
+
+        etDateVencimiento.setOnClickListener {
+            showDatePicker { date -> etDateVencimiento.setText(date) }
+        }
+    }
+
+    private fun guardarTarea() {
+        val titulo = etTitulo.text.toString()
+        val descripcion = etDescripcion.text.toString()
+        val fechaInicio = etDateInicio.text.toString()
+        val fechaVencimiento = etDateVencimiento.text.toString()
+        val etiquetaSeleccionada = spinnerEtiqueta.selectedItem.toString()
+
+        // Obtener el ID de la etiqueta seleccionada
+        val idEtiqueta = when (etiquetaSeleccionada) {
+            "Escuela" -> 1
+            "Trabajo" -> 2
+            "Ocio" -> 3
+            else -> null
+        }
+
+        // Validar los campos
+        if (titulo.isEmpty() || descripcion.isEmpty() || fechaInicio.isEmpty() || fechaVencimiento.isEmpty() || idEtiqueta == null) {
+            Toast.makeText(this, "Por favor, completa todos los campos.", Toast.LENGTH_SHORT).show()
+            return // Salimos si hay campos vacíos
+        }
+
+        val tarea = Tarea(0, titulo, descripcion, fechaInicio, fechaVencimiento, idEtiqueta, idUsuario = 1)
+
+        try {
+            tareaDao.insertarTarea(tarea)
+            Toast.makeText(this, "Tarea guardada: $titulo", Toast.LENGTH_SHORT).show()
+
+            // Programar el recordatorio
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val date = dateFormat.parse(fechaVencimiento)
+            val reminderTime = date?.time ?: System.currentTimeMillis()
+            setReminder(titulo, "Recordatorio para la tarea: $titulo", reminderTime)
+
+            finish()
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error al guardar la tarea: ${e.message}", Toast.LENGTH_SHORT).show()
+            Log.e("TareaActivity", "Error: ${e.message}")
+        }
+    }
+
+    private fun setupToolbar() {
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        toolbar.setNavigationOnClickListener {
+            val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+    }
+
+    private fun setReminder(title: String, message: String, reminderTime: Long) {
+        val intent = Intent(this, ReminderReceiver::class.java).apply {
+            putExtra("title", title)
+            putExtra("message", message)
+        }
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, reminderTime, pendingIntent)
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_calendar -> {
-                // Aquí puedes redirigir a la actividad del calendario
-                val intent = Intent(this, CalendarActivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(this, CalendarActivity::class.java))
             }
             R.id.nav_task -> {
-                // Redirigir a la pantalla de lista de tareas
-                val intent = Intent(this, ListaTareasActivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(this, ListaTareasActivity::class.java))
             }
-            // Agregar más casos si tienes otras opciones en el menú
         }
-
-        // Cerrar el menú después de seleccionar un ítem
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        drawerLayout.closeDrawer(GravityCompat.START)
+        findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawer(GravityCompat.START)
         return true
     }
 
@@ -123,7 +192,7 @@ class TareaActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-            val selectedDate = "${selectedMonth + 1}-$selectedDay-$selectedYear" // Formato MM-DD-YYYY
+            val selectedDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
             onDateSelected(selectedDate)
         }, year, month, day).show()
     }

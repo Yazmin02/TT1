@@ -14,7 +14,7 @@ class UsuarioController(private val usuarioRepo: UsuarioRepository) {
     // Método para agregar un nuevo usuario
     fun agregarUsuario(nombre: String, correoE: String, contraseña: String) {
         // Crea una nueva instancia de Usuario
-        val usuario = Usuario(nUsuario = nombre, email = correoE, password = contraseña)
+        val usuario = Usuario(nUsuario = nombre, correoE = correoE, password = contraseña)
         // Llama al método agregarUsuario del repositorio
         usuarioRepo.agregarUsuario(usuario)
     }
