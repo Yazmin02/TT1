@@ -140,6 +140,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
                     android:contentDescription="@string/guardar_tarea"
+                    android:background="@android:color/transparent"
                     android:src="@drawable/ic_check" />
             </LinearLayout>
         </ScrollView>

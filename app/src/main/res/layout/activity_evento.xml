@@ -138,21 +138,15 @@
 
             <EditText
                 android:id="@+id/etUbicacion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Ingresa la ubicación o selecciona"
-                android:padding="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="73dp"
                 android:layout_marginTop="8dp"
+                android:drawableEnd="@drawable/ic_location_foreground"
                 android:focusable="false"
-                android:drawableEnd="@drawable/ic_location_foreground" />
+                android:hint="Ingresa la ubicación o selecciona"
+                android:padding="8dp" />
 
             <!-- Botón para seleccionar ubicación -->
-            <Button
-                android:id="@+id/btnSeleccionarUbicacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Seleccionar Ubicación"
-                android:layout_marginTop="8dp"/>
 
             <!-- Botón para Guardar la Tarea -->
             <ImageButton
@@ -162,6 +156,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:contentDescription="@string/guardar_evento"
+                android:background="@android:color/transparent"
                 android:src="@drawable/ic_check" />
         </LinearLayout>
     </LinearLayout>
