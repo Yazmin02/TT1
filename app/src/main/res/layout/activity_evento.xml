@@ -1,0 +1,178 @@
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".EventoActivity">
+
+    <!-- Contenido principal -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Barra de menú (Toolbar) -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#B1DAEC"
+            app:title="Agregar Evento"
+            app:titleTextColor="#FFFFFF"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:navigationIcon="@drawable/ic_menu" />
+
+        <!-- Contenido de la pantalla Agregar Evento -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Campo de Título -->
+            <EditText
+                android:id="@+id/etTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Título"
+                android:padding="8dp"
+                android:layout_marginTop="16dp"/>
+
+            <!-- Campo de Descripción -->
+            <EditText
+                android:id="@+id/etDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Descripción"
+                android:padding="8dp"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Campo de Fecha -->
+            <TextView
+                android:id="@+id/dateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha de Inicio"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp" />
+
+            <EditText
+                android:id="@+id/et_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="MM-DD-YYYY"
+                android:focusable="false"
+                android:drawableEnd="@drawable/ic_calendar"
+                android:inputType="date"
+                android:layout_marginBottom="5dp" />
+
+            <!-- Campo de Fecha de Vencimiento -->
+            <TextView
+                android:id="@+id/dateLabel2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha de Vencimiento"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp" />
+
+            <EditText
+                android:id="@+id/et_date2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="MM-DD-YYYY"
+                android:focusable="false"
+                android:drawableEnd="@drawable/ic_calendar"
+                android:inputType="date"
+                android:layout_marginBottom="5dp" />
+
+            <!-- Spinner de Etiqueta -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Etiqueta"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp" />
+
+            <Spinner
+                android:id="@+id/spinnerEtiqueta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"/>
+
+            <!-- CheckBox para Recordatorio -->
+            <CheckBox
+                android:id="@+id/cbRecordatorio"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginTop="5dp"
+                android:text="Activar Recordatorio" />
+
+            <!-- Time Picker para seleccionar la hora -->
+            <TextView
+                android:id="@+id/timeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hora del Recordatorio"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp" />
+
+            <TimePicker
+                android:id="@+id/timePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone" />
+
+            <!-- Campo de Ubicación -->
+            <TextView
+                android:id="@+id/locationLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ubicación"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp" />
+
+            <EditText
+                android:id="@+id/etUbicacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ingresa la ubicación o selecciona"
+                android:padding="8dp"
+                android:layout_marginTop="8dp"
+                android:focusable="false"
+                android:drawableEnd="@drawable/ic_location_foreground" />
+
+            <!-- Botón para seleccionar ubicación -->
+            <Button
+                android:id="@+id/btnSeleccionarUbicacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seleccionar Ubicación"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Botón para Guardar la Tarea -->
+            <ImageButton
+                android:id="@+id/btnGuardarEvento"
+                android:layout_width="wrap_content"
+                android:layout_height="104dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/guardar_evento"
+                android:src="@drawable/ic_check" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Menú lateral (NavigationView) -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#FFFFFF"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu" />
+</androidx.drawerlayout.widget.DrawerLayout>

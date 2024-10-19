@@ -18,4 +18,6 @@
     <item name="btnFechaVencimiento" type="id" />
     <item name="btnFechaInicio" type="id" />
     <item name="tareasContainer" type="id" />
+    <item name="spinnerRecordatorio" type="id" />
+    <item name="btnGuardarTarea" type="id" />
 </resources>

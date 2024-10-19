@@ -27,116 +27,122 @@
             app:navigationIcon="@drawable/ic_menu" />
 
         <!-- Contenido de la pantalla Agregar Tarea -->
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="match_parent">
 
-            <!-- Campo de Título -->
-            <EditText
-                android:id="@+id/etTitulo"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Título"
-                android:padding="8dp"
-                android:layout_marginTop="16dp"/>
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <!-- Campo de Descripción -->
-            <EditText
-                android:id="@+id/etDescripcion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Descripción"
-                android:padding="8dp"
-                android:layout_marginTop="8dp"/>
+                <!-- Campo de Título -->
+                <EditText
+                    android:id="@+id/etTitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Título"
+                    android:padding="8dp"
+                    android:layout_marginTop="16dp"/>
 
-            <!-- Campo de Fecha -->
-            <TextView
-                android:id="@+id/dateLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fecha de Inicio"
-                android:textSize="16sp"
-                android:layout_marginTop="16dp" />
+                <!-- Campo de Descripción -->
+                <EditText
+                    android:id="@+id/etDescripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Descripción"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"/>
 
-            <EditText
-                android:id="@+id/et_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="MM-DD-YYYY"
-                android:focusable="false"
-                android:drawableEnd="@drawable/ic_calendar"
-                android:inputType="date"
-                android:layout_marginBottom="16dp" />
+                <!-- Campo de Fecha y Hora de Inicio -->
+                <TextView
+                    android:id="@+id/dateLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha y Hora de Inicio"
+                    android:textSize="16sp"
+                    android:layout_marginTop="16dp" />
 
-            <!-- Campo de Fecha de Vencimiento -->
-            <TextView
-                android:id="@+id/dateLabel2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fecha de Vencimiento"
-                android:textSize="16sp"
-                android:layout_marginTop="16dp" />
+                <EditText
+                    android:id="@+id/et_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="YYYY-MM-DD HH:MM"
+                    android:focusable="false"
+                    android:drawableEnd="@drawable/ic_calendar"
+                    android:inputType="datetime"
+                    android:layout_marginBottom="16dp" />
 
-            <EditText
-                android:id="@+id/et_date2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="MM-DD-YYYY"
-                android:focusable="false"
-                android:drawableEnd="@drawable/ic_calendar"
-                android:inputType="date"
-                android:layout_marginBottom="16dp" />
+                <!-- Campo de Fecha y Hora de Vencimiento -->
+                <TextView
+                    android:id="@+id/dateLabel2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha y Hora de Vencimiento"
+                    android:textSize="16sp"
+                    android:layout_marginTop="16dp" />
 
-            <!-- Spinner de Etiqueta -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Etiqueta"
-                android:textSize="16sp"
-                android:layout_marginTop="16dp" />
+                <EditText
+                    android:id="@+id/et_date2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="YYYY-MM-DD HH:MM"
+                    android:focusable="false"
+                    android:drawableEnd="@drawable/ic_calendar"
+                    android:inputType="datetime"
+                    android:layout_marginBottom="16dp" />
 
-            <Spinner
-                android:id="@+id/spinnerEtiqueta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"/>
+                <!-- Spinner de Etiqueta -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Etiqueta"
+                    android:textSize="16sp"
+                    android:layout_marginTop="16dp" />
 
-            <!-- CheckBox para Recordatorio -->
-            <CheckBox
-                android:id="@+id/cbRecordatorio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Activar Recordatorio"
-                android:layout_marginTop="16dp"/>
+                <Spinner
+                    android:id="@+id/spinnerEtiqueta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"/>
 
-            <!-- Time Picker para seleccionar la hora -->
-            <TextView
-                android:id="@+id/timeLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hora del Recordatorio"
-                android:textSize="16sp"
-                android:layout_marginTop="16dp" />
+                <!-- CheckBox para Recordatorio -->
+                <CheckBox
+                    android:id="@+id/cbRecordatorio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Activar Recordatorio"
+                    android:layout_marginTop="16dp"/>
 
-            <TimePicker
-                android:id="@+id/timePicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:visibility="gone" />
+                <!-- Spinner para seleccionar el tiempo de recordatorio -->
+                <TextView
+                    android:id="@+id/timeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tiempo antes del Recordatorio"
+                    android:textSize="16sp"
+                    android:layout_marginTop="16dp"
+                    android:visibility="gone"/> <!-- Inicialmente oculto -->
 
-            <!-- Botón para Guardar la Tarea -->
-            <ImageButton
-                android:id="@+id/btnGuardarTarea"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_check_back"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@string/guardar_tarea"/>
-        </LinearLayout>
+                <Spinner
+                    android:id="@+id/spinnerRecordatorio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone" /> <!-- Inicialmente oculto -->
+
+                <!-- Botón para Guardar la Tarea -->
+                <ImageButton
+                    android:id="@+id/btnGuardarTarea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="104dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:contentDescription="@string/guardar_tarea"
+                    android:src="@drawable/ic_check" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
     <!-- Menú lateral (NavigationView) -->

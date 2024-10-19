@@ -19,7 +19,6 @@ class TareaRepository(private val dbHelper: DatabaseHelper) {
             put("idEtiqueta", tarea.idEtiqueta)
         }
 
-        // Realiza la inserción y verifica el resultado
         val newRowId = db.insert("Tarea", null, values)
         if (newRowId == -1L) {
             Log.e("TareaRepository", "Error al insertar la tarea: ${tarea.titulo}")
@@ -60,5 +59,70 @@ class TareaRepository(private val dbHelper: DatabaseHelper) {
         cursor.close()
         db.close()
         return tareas
+    }
+
+    @SuppressLint("Range")
+    fun obtenerTareaPorId(id: Int): Tarea? {
+        val db: SQLiteDatabase = dbHelper.readableDatabase
+        val cursor: Cursor = db.query(
+            "Tarea",
+            null,
+            "idTarea=?",
+            arrayOf(id.toString()),
+            null,
+            null,
+            null
+        )
+
+        return if (cursor.moveToFirst()) {
+            val titulo = cursor.getString(cursor.getColumnIndex("titulo"))
+            val descripcion = cursor.getString(cursor.getColumnIndex("descripcion"))
+            val fInicio = cursor.getString(cursor.getColumnIndex("fInicio"))
+            val fVencimiento = cursor.getString(cursor.getColumnIndex("fVencimiento"))
+            val idEtiqueta = cursor.getInt(cursor.getColumnIndex("idEtiqueta"))
+
+            Tarea(id, titulo, descripcion, fInicio, fVencimiento, idEtiqueta, idUsuario = 1)
+        } else {
+            null
+        }.also {
+            cursor.close()
+        }
+    }
+
+    fun eliminarTarea(id: Int) {
+        val db: SQLiteDatabase = dbHelper.writableDatabase
+        val deletedRows = db.delete("Tarea", "idTarea = ?", arrayOf(id.toString()))
+
+        if (deletedRows > 0) {
+            Log.d("TareaRepository", "Tarea eliminada con éxito: ID = $id")
+        } else {
+            Log.e("TareaRepository", "Error al eliminar la tarea: ID = $id")
+            throw Exception("Error al eliminar la tarea")
+        }
+
+        db.close()
+    }
+
+
+    fun actualizarTarea(tarea: Tarea) {
+        val db: SQLiteDatabase = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put("titulo", tarea.titulo)
+            put("descripcion", tarea.descripcion)
+            put("fInicio", tarea.fInicio)
+            put("fVencimiento", tarea.fVencimiento)
+            put("idEtiqueta", tarea.idEtiqueta)
+        }
+
+        val updatedRows = db.update("Tarea", values, "idTarea = ?", arrayOf(tarea.id.toString()))
+
+        if (updatedRows > 0) {
+            Log.d("TareaRepository", "Tarea actualizada con éxito: ID = ${tarea.id}")
+        } else {
+            Log.e("TareaRepository", "Error al actualizar la tarea: ID = ${tarea.id}")
+            throw Exception("Error al actualizar la tarea")
+        }
+
+        db.close()
     }
 }

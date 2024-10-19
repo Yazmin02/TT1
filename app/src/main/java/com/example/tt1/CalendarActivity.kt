@@ -8,10 +8,10 @@ import android.widget.Button
 import android.widget.CalendarView
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.widget.Toolbar
-import com.google.android.material.navigation.NavigationView
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 
 class CalendarActivity : AppCompatActivity() {
 
@@ -81,8 +81,11 @@ class CalendarActivity : AppCompatActivity() {
                 val intent = Intent(this, PrincipalActivity::class.java)
                 startActivity(intent)
             }
-            // Otros ítems del menú pueden ser manejados aquí
-        }
+            R.id.nav_task -> {
+                // Redirige a la actividad principal
+                val intent = Intent(this, ListaActivity::class.java)
+                startActivity(intent)
+            }        }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }

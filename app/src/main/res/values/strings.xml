@@ -26,4 +26,5 @@
     <string name="register">\n</string>
     <string name="bienvenido_a_registro" />
     <string name="semana">\n</string>
+    <string name="guardar_evento" />
 </resources>

@@ -1,13 +1,15 @@
 package com.example.tt1.model
 
+import java.io.Serializable
+
 data class Tarea(
     val id: Int = 0,
-    val titulo: String,
-    val descripcion: String?,
+    var titulo: String,
+    var descripcion: String?,
     val fInicio: String,
-    val fVencimiento: String,
+    var fVencimiento: String,
     val idEtiqueta: Int,
     val idUsuario: Int // Asegúrate de incluir este campo
 
-)
+): Serializable
 

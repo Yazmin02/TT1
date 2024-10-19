@@ -43,7 +43,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
             R.id.nav_task -> {
                 // Redirige a la actividad de lista de tareas
-                val intent = Intent(this, ListaTareasActivity::class.java)
+                val intent = Intent(this, ListaActivity::class.java)
                 startActivity(intent)
             }
         }

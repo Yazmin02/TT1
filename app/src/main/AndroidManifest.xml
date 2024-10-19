@@ -25,21 +25,16 @@
             </intent-filter>
         </activity>
 
-        <!-- Declarar la actividad de registro -->
         <activity android:name=".RegisterActivity" />
-
-        <!-- Declarar la actividad principal -->
         <activity android:name=".PrincipalActivity" />
-
-        <!-- Declarar la actividad de calendario -->
         <activity android:name=".CalendarActivity" />
-
-        <!-- Declarar la actividad de tarea -->
         <activity android:name=".TareaActivity" />
-
-        <!-- Declarar la actividad de lista -->
-        <activity android:name=".ListaTareasActivity"/>
+        <activity android:name=".ListaActivity"/>
         <receiver android:name=".ReminderReceiver" />
+        <activity android:name=".VerTareaActivity" />
+        <activity android:name=".EditarTareaActivity" />
+
+
 
 
     </application>
