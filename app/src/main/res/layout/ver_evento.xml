@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Título de la tarea:"
+        android:text="Título del evento:"
         android:textSize="18sp"
         android:textStyle="bold"
         android:paddingBottom="4dp" />
@@ -88,12 +88,27 @@
         android:layout_height="wrap_content"
         android:textSize="16sp" />
 
+    <!-- Etiqueta para la Ubicación -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ubicación:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingBottom="4dp" />
+
+    <TextView
+        android:id="@+id/ubicacionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp" />
+
     <!-- Botón de Editar -->
     <Button
         android:id="@+id/botonEditar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Editar tarea"
+        android:text="Editar Evento"
         android:layout_marginTop="16dp"
         android:backgroundTint="@android:color/holo_blue_dark"
         android:textColor="@android:color/white" />
@@ -103,7 +118,7 @@
         android:id="@+id/botonEliminar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Eliminar tarea"
+        android:text="Eliminar Evento"
         android:layout_marginTop="16dp"
         android:backgroundTint="@android:color/holo_red_dark"
         android:textColor="@android:color/white" />

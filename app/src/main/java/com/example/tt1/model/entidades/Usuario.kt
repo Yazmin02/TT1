@@ -1,4 +1,4 @@
-package com.example.tt1.model
+package com.example.tt1.model.entidades
 
 data class Usuario(
     val idUsuario: Int = 0, // Se asigna automáticamente al insertar en la base de datos

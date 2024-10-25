@@ -1,4 +1,4 @@
-package com.example.tt1
+package com.example.tt1.tarea
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tt1.model.Tarea
+import com.example.tt1.R
+import com.example.tt1.model.entidades.Tarea
 
 class TareaAdapter(
     private val tareas: MutableList<Tarea>, // Cambiado a MutableList

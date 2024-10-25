@@ -1,11 +1,12 @@
-package com.example.tt1
+package com.example.tt1.model.repositorios
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
-import com.example.tt1.model.Tarea
+import com.example.tt1.DatabaseHelper
+import com.example.tt1.model.entidades.Tarea
 
 class TareaRepository(private val dbHelper: DatabaseHelper) {
 
@@ -124,5 +125,17 @@ class TareaRepository(private val dbHelper: DatabaseHelper) {
         }
 
         db.close()
+    }
+    fun obtenerNombreEtiquetaPorId(idEtiqueta: Int): String? {
+        val db: SQLiteDatabase = dbHelper.readableDatabase
+
+        var nombre: String? = null
+
+        val cursor = db.rawQuery("SELECT nombre FROM Etiqueta WHERE idEtiqueta = ?", arrayOf(idEtiqueta.toString()))
+        if (cursor.moveToFirst()) {
+            nombre = cursor.getString(0) // Obtener el nombre de la etiqueta
+        }
+        cursor.close()
+        return nombre
     }
 }

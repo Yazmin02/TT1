@@ -7,7 +7,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.tt1.model.UsuarioRepository
+import com.example.tt1.model.repositorios.UsuarioRepository
 
 class MainActivity : AppCompatActivity() {
     private lateinit var usuarioRepo: UsuarioRepository

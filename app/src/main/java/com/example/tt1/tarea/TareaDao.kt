@@ -1,10 +1,10 @@
-package com.example.tt1
+package com.example.tt1.tarea
 
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
-import com.example.tt1.model.Tarea
+import com.example.tt1.model.entidades.Tarea
 
 class TareaDao(private val db: SQLiteDatabase) {
 

@@ -7,6 +7,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.tt1.evento.ListaEvento
+import com.example.tt1.tarea.ListaActivity
 import com.google.android.material.navigation.NavigationView
 
 class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -44,6 +46,11 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.nav_task -> {
                 // Redirige a la actividad de lista de tareas
                 val intent = Intent(this, ListaActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_evento -> {
+                // Redirige a la actividad de lista de tareas
+                val intent = Intent(this, ListaEvento::class.java)
                 startActivity(intent)
             }
         }

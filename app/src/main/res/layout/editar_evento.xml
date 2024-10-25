@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".tarea.TareaActivity">
+    tools:context=".evento.EventoActivity">
 
     <!-- Contenido principal -->
     <LinearLayout
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#B1DAEC"
-            app:title="Agregar Tarea"
+            app:title="Editar Evento"
             app:titleTextColor="#FFFFFF"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -55,24 +55,6 @@
                     android:padding="8dp"
                     android:layout_marginTop="8dp"/>
 
-                <!-- Campo de Fecha y Hora de Inicio -->
-                <TextView
-                    android:id="@+id/dateLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fecha y Hora de Inicio"
-                    android:textSize="16sp"
-                    android:layout_marginTop="16dp" />
-
-                <EditText
-                    android:id="@+id/et_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="YYYY-MM-DD HH:MM"
-                    android:focusable="false"
-                    android:drawableEnd="@drawable/ic_calendar"
-                    android:inputType="datetime"
-                    android:layout_marginBottom="16dp" />
 
                 <!-- Campo de Fecha y Hora de Vencimiento -->
                 <TextView
@@ -92,49 +74,9 @@
                     android:drawableEnd="@drawable/ic_calendar"
                     android:inputType="datetime"
                     android:layout_marginBottom="16dp" />
-
-                <!-- Spinner de Etiqueta -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Etiqueta"
-                    android:textSize="16sp"
-                    android:layout_marginTop="16dp" />
-
-                <Spinner
-                    android:id="@+id/spinnerEtiqueta"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"/>
-
-                <!-- CheckBox para Recordatorio -->
-                <CheckBox
-                    android:id="@+id/cbRecordatorio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Activar Recordatorio"
-                    android:layout_marginTop="16dp"/>
-
-                <!-- Spinner para seleccionar el tiempo de recordatorio -->
-                <TextView
-                    android:id="@+id/timeLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tiempo antes del Recordatorio"
-                    android:textSize="16sp"
-                    android:layout_marginTop="16dp"
-                    android:visibility="gone"/> <!-- Inicialmente oculto -->
-
-                <Spinner
-                    android:id="@+id/spinnerRecordatorio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:visibility="gone" /> <!-- Inicialmente oculto -->
-
                 <!-- Botón para Guardar la Tarea -->
                 <ImageButton
-                    android:id="@+id/btnGuardarTarea"
+                    android:id="@+id/btnGuardarEvento"
                     android:layout_width="wrap_content"
                     android:layout_height="104dp"
                     android:layout_gravity="center"

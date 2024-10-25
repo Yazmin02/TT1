@@ -20,4 +20,5 @@
     <item name="tareasContainer" type="id" />
     <item name="spinnerRecordatorio" type="id" />
     <item name="btnGuardarTarea" type="id" />
+    <item name="nav_evento" type="id" />
 </resources>

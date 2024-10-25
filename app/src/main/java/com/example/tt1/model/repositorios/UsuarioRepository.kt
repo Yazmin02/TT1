@@ -1,10 +1,11 @@
-package com.example.tt1.model
+package com.example.tt1.model.repositorios
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.example.tt1.DatabaseHelper
+import com.example.tt1.model.entidades.Usuario
 
 class UsuarioRepository(private val dbHelper: DatabaseHelper) {
 

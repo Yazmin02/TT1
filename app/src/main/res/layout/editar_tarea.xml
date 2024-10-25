@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".TareaActivity">
+    tools:context=".tarea.TareaActivity">
 
     <!-- Contenido principal -->
     <LinearLayout
@@ -82,6 +82,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
                     android:contentDescription="@string/guardar_tarea"
+                    android:background="@android:color/transparent"
                     android:src="@drawable/ic_check" />
             </LinearLayout>
         </ScrollView>

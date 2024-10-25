@@ -3,7 +3,7 @@ package com.example.tt1
 
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
-import com.example.tt1.model.Usuario
+import com.example.tt1.model.entidades.Usuario
 
 class UsuarioDao(private val db: SQLiteDatabase) {
 

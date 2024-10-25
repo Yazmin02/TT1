@@ -1,7 +1,7 @@
 package com.example.tt1.controller
 
-import com.example.tt1.model.Usuario
-import com.example.tt1.model.UsuarioRepository
+import com.example.tt1.model.entidades.Usuario
+import com.example.tt1.model.repositorios.UsuarioRepository
 
 class UsuarioController(private val usuarioRepo: UsuarioRepository) {
 

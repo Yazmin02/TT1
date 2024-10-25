@@ -11,6 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.tt1.evento.EventoActivity
+import com.example.tt1.evento.ListaEvento
+import com.example.tt1.tarea.ListaActivity
+import com.example.tt1.tarea.TareaActivity
 import com.google.android.material.navigation.NavigationView
 
 class CalendarActivity : AppCompatActivity() {
@@ -65,7 +69,8 @@ class CalendarActivity : AppCompatActivity() {
                     true
                 }
                 R.id.action_add_event -> {
-                    // Lógica para agregar evento
+                    val intent = Intent(this, EventoActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 else -> false
@@ -85,7 +90,13 @@ class CalendarActivity : AppCompatActivity() {
                 // Redirige a la actividad principal
                 val intent = Intent(this, ListaActivity::class.java)
                 startActivity(intent)
-            }        }
+            }
+            R.id.nav_evento -> {
+                // Redirige a la actividad de lista de tareas
+                val intent = Intent(this, ListaEvento::class.java)
+                startActivity(intent)
+            }
+        }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }

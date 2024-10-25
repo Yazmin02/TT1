@@ -49,7 +49,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
     """.trimIndent()
         )
 
-        // Inserta las etiquetas directamente al crear la tabla
         insertarEtiquetas(db)
 
         db.execSQL(
@@ -60,7 +59,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
             descripcion TEXT,
             fInicio DATE NOT NULL,
             fVencimiento DATE NOT NULL,
-            lugar TEXT NOT NULL
+            lugar TEXT NOT NULL,
+            idEtiqueta INTEGER NOT NULL,
+            FOREIGN KEY (idEtiqueta) REFERENCES Etiqueta (idEtiqueta)
         ); 
     """.trimIndent()
         )

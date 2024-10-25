@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".EventoActivity">
+    tools:context=".evento.EventoActivity">
 
     <!-- Contenido principal -->
     <LinearLayout
@@ -107,25 +107,26 @@
             <CheckBox
                 android:id="@+id/cbRecordatorio"
                 android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_marginTop="5dp"
-                android:text="Activar Recordatorio" />
+                android:layout_height="wrap_content"
+                android:text="Activar Recordatorio"
+                android:layout_marginTop="16dp"/>
 
-            <!-- Time Picker para seleccionar la hora -->
+            <!-- Spinner para seleccionar el tiempo de recordatorio -->
             <TextView
                 android:id="@+id/timeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hora del Recordatorio"
+                android:text="Tiempo antes del Recordatorio"
                 android:textSize="16sp"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp"
+                android:visibility="gone"/> <!-- Inicialmente oculto -->
 
-            <TimePicker
-                android:id="@+id/timePicker"
-                android:layout_width="wrap_content"
+            <Spinner
+                android:id="@+id/spinnerRecordatorio"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:visibility="gone" />
+                android:visibility="gone" /> <!-- Inicialmente oculto -->
 
             <!-- Campo de Ubicación -->
             <TextView
@@ -138,15 +139,24 @@
 
             <EditText
                 android:id="@+id/etUbicacion"
-                android:layout_width="wrap_content"
-                android:layout_height="73dp"
+                android:layout_width="379dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="8dp"
-                android:drawableEnd="@drawable/ic_location_foreground"
                 android:focusable="false"
-                android:hint="Ingresa la ubicación o selecciona"
+                android:hint="Ubicación"
                 android:padding="8dp" />
 
             <!-- Botón para seleccionar ubicación -->
+            <ImageButton
+                android:id="@+id/btnSeleccionar"
+                android:layout_width="80dp"
+                android:layout_height="69dp"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+
+                android:contentDescription="Seleccionar ubicación"
+                android:src="@drawable/ic_location_foreground" />
+
 
             <!-- Botón para Guardar la Tarea -->
             <ImageButton

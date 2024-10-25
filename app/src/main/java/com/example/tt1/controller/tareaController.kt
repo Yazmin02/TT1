@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tt1.R
-import com.example.tt1.TareaRepository
-import com.example.tt1.model.Tarea
+import com.example.tt1.model.repositorios.TareaRepository
+import com.example.tt1.model.entidades.Tarea
 import com.example.tt1.model.TareaModel
 import com.example.tt1.view.TareaView
 import kotlinx.coroutines.CoroutineScope

@@ -27,4 +27,6 @@
     <string name="bienvenido_a_registro" />
     <string name="semana">\n</string>
     <string name="guardar_evento" />
+    <string name="google_maps_key">AIzaSyAoGX963jG204l4DLQZNETSCfsXuUOUFTg</string>
+
 </resources>

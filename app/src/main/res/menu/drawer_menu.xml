@@ -13,6 +13,6 @@
         android:title="Tareas" />
 
     <item
-        android:id="@+id/nav_settings"
+        android:id="@+id/nav_evento"
         android:title="Eventos" />
 </menu>

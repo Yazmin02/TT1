@@ -1,4 +1,4 @@
-package com.example.tt1.model
+package com.example.tt1.model.entidades
 
 import java.io.Serializable
 

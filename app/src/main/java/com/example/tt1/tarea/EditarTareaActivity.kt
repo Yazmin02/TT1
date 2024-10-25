@@ -1,4 +1,4 @@
-package com.example.tt1
+package com.example.tt1.tarea
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -10,7 +10,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.tt1.model.Tarea
+import com.example.tt1.CalendarActivity
+import com.example.tt1.DatabaseHelper
+import com.example.tt1.PrincipalActivity
+import com.example.tt1.R
+import com.example.tt1.model.entidades.Tarea
+import com.example.tt1.model.repositorios.TareaRepository
 import com.google.android.material.navigation.NavigationView
 import java.util.Calendar
 
