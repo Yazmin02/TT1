@@ -32,7 +32,6 @@ import com.example.tt1.PrincipalActivity
 import com.example.tt1.R
 import com.example.tt1.ReminderReceiver
 import com.example.tt1.model.entidades.Evento
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.navigation.NavigationView
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -238,9 +237,10 @@ class EventoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
             finish()
         } catch (e: Exception) {
-            Toast.makeText(this, "Error al guardar el evento.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Error al guardar el evento: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun setupReminder(titulo: String) {
         if (cbRecordatorio.isChecked) {
@@ -281,11 +281,13 @@ class EventoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == LOCATION_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val latLng = data?.getParcelableExtra<LatLng>("latLng")
-            latLng?.let {
-                etUbicacion.setText("Lat: ${it.latitude}, Lng: ${it.longitude}")
-            }
+            val latitude = data?.getDoubleExtra("latitude", 0.0) ?: 0.0
+            val longitude = data?.getDoubleExtra("longitude", 0.0) ?: 0.0
+            // Ahora usa la latitud y longitud como necesites, por ejemplo, en etUbicacion
+            etUbicacion.setText("$latitude, $longitude")
         }
     }
+
+
 
 }
