@@ -122,7 +122,6 @@ class TareaActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 101)
             }
         }
-
     }
 
     private fun createNotificationChannel() {
@@ -213,7 +212,11 @@ class TareaActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
         // Validar que la fecha de vencimiento no sea anterior a la fecha de inicio
         if (fechaVencimientoCalendar.before(fechaInicioCalendar)) {
-            Toast.makeText(this, "La fecha y hora de vencimiento no pueden ser anteriores a la fecha y hora de inicio.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "La fecha y hora de vencimiento no pueden ser anteriores a la fecha y hora de inicio.",
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
 
@@ -234,8 +237,6 @@ class TareaActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             // Programar el recordatorio si está activado
             if (cbRecordatorio.isChecked) {
                 val reminderTime = fechaVencimientoCalendar.timeInMillis
-
-                // Obtener el tiempo de recordatorio seleccionado
                 val tiempoSeleccionado = when (spinnerRecordatorio.selectedItem.toString()) {
                     "1 día antes" -> 24 * 60 * 60 * 1000L // 1 día en milisegundos
                     "1 hora antes" -> 60 * 60 * 1000L // 1 hora en milisegundos
@@ -248,17 +249,30 @@ class TareaActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
                 // Verificar que el tiempo de recordatorio no sea en el pasado
                 if (tiempoRecordatorio > System.currentTimeMillis()) {
-                    setReminder(titulo, "Recordatorio para la tarea: $titulo", tiempoRecordatorio)
+                    val formatoFecha = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+                    val fechaEntrega = formatoFecha.format(fechaVencimientoCalendar.time)
+
+                    setReminder(
+                        titulo,
+                        "Recordatorio: Debes entregar '$titulo' el $fechaEntrega",
+                        tiempoRecordatorio
+                    )
                 } else {
-                    Toast.makeText(this, "El tiempo de recordatorio seleccionado ya pasó.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "El tiempo de recordatorio seleccionado ya pasó.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
             finish()
         } catch (e: Exception) {
-            Toast.makeText(this, "Error al guardar la tarea: ${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Error al guardar la tarea: ${e.message}", Toast.LENGTH_SHORT)
+                .show()
             Log.e("TareaActivity", "Error al guardar tarea: ${e.message}")
         }
+
     }
 
     private fun setupToolbar() {

@@ -26,6 +26,14 @@
             android:contentInsetStart="0dp"
             android:contentInsetEnd="0dp"
             app:navigationIcon="@drawable/ic_menu" />
+        <ImageView
+            android:id="@+id/punto_indicador"
+            android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/calendar_view"
+        android:background="@drawable/circle"
+        android:visibility="gone" />
 
         <!-- Selector de vista: Mes, Semana, Día -->
         <HorizontalScrollView

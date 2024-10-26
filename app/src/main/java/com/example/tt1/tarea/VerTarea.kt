@@ -2,6 +2,7 @@ package com.example.tt1.tarea
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -74,6 +75,7 @@ class VerTareaActivity : AppCompatActivity() {
 
     private fun cargarDetallesTarea() {
         val tarea = tareaRepository.obtenerTareaPorId(tareaId)
+        Log.d("VerTareaActivity", "ID de la tarea: $tareaId") // Añadir log para verificar el ID
 
         if (tarea != null) {
             tituloTextView.text = tarea.titulo
@@ -81,11 +83,12 @@ class VerTareaActivity : AppCompatActivity() {
             fInicioTextView.text = tarea.fInicio
             fVencimientoTextView.text = tarea.fVencimiento
             val nombreEtiqueta = tareaRepository.obtenerNombreEtiquetaPorId(tarea.idEtiqueta)
-            etiquetaTextView.text = nombreEtiqueta ?: "Etiqueta no encontrada" // Manejar el caso de etiqueta no encontrada
+            etiquetaTextView.text = nombreEtiqueta ?: "Etiqueta no encontrada"
         } else {
             mostrarMensajeError("No se encontró la tarea")
         }
     }
+
 
     private fun mostrarDialogoConfirmacion() {
         val builder = AlertDialog.Builder(this)
@@ -113,7 +116,6 @@ class VerTareaActivity : AppCompatActivity() {
             mostrarMensajeError("ID de tarea no válido")
         }
     }
-
 
     private fun mostrarMensajeError(mensaje: String) {
         Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()

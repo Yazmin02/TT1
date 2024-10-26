@@ -17,7 +17,9 @@ import com.example.tt1.R
 import com.example.tt1.model.entidades.Tarea
 import com.example.tt1.model.repositorios.TareaRepository
 import com.google.android.material.navigation.NavigationView
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class EditarTareaActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -88,6 +90,12 @@ class EditarTareaActivity : AppCompatActivity(), NavigationView.OnNavigationItem
                 return
             }
 
+            // Verificar si la fecha de vencimiento es posterior a la fecha de inicio
+            if (esFechaAnterior(etFechaVencimiento.text.toString(), tarea.fInicio)) {
+                Toast.makeText(this, "La fecha de vencimiento debe ser posterior a la fecha de inicio", Toast.LENGTH_SHORT).show()
+                return
+            }
+
             tarea.titulo = etTitulo.text.toString()
             tarea.descripcion = etDescripcion.text.toString()
             tarea.fVencimiento = etFechaVencimiento.text.toString()
@@ -105,7 +113,8 @@ class EditarTareaActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         val datePickerDialog = DatePickerDialog(
             this,
             { _, year, month, dayOfMonth ->
-                val fechaSeleccionada = "$dayOfMonth/${month + 1}/$year"
+                // Cambiar el formato de la fecha a "yyyy-MM-dd HH:mm"
+                val fechaSeleccionada = "$year-${month + 1}-$dayOfMonth 00:00" // Ajusta la hora a las 00:00
                 etFechaVencimiento.setText(fechaSeleccionada)
             },
             calendar.get(Calendar.YEAR),
@@ -113,6 +122,20 @@ class EditarTareaActivity : AppCompatActivity(), NavigationView.OnNavigationItem
             calendar.get(Calendar.DAY_OF_MONTH)
         )
         datePickerDialog.show()
+    }
+
+    private fun esFechaAnterior(fechaVencimiento: String, fechaInicio: String): Boolean {
+        // Cambiar el formato para que coincida con la entrada de fechas
+        val formato = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        val fechaV = formato.parse(fechaVencimiento)
+        val fechaI = formato.parse(fechaInicio)
+
+        // Asegurarse de que las fechas no sean nulas antes de comparar
+        return if (fechaV != null && fechaI != null) {
+            fechaV.before(fechaI) // Devuelve true si la fecha de vencimiento es anterior a la de inicio
+        } else {
+            false // Si alguna de las fechas es nula, devuelve false
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

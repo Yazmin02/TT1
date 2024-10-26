@@ -74,6 +74,8 @@
                     android:drawableEnd="@drawable/ic_calendar"
                     android:inputType="datetime"
                     android:layout_marginBottom="16dp" />
+
+
                 <!-- Botón para Guardar la Tarea -->
                 <ImageButton
                     android:id="@+id/btnGuardarTarea"
