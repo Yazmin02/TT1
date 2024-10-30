@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#B1DAEC"
-            app:title="Gestión de tiempo"
+            app:title="Inicio"
             app:titleTextColor="#FFFFFF"
             app:layout_constraintTop_toTopOf="parent"
             android:contentInsetStart="0dp"
@@ -25,24 +25,36 @@
             app:navigationIcon="@drawable/ic_menu" />
 
         <!-- Título centrado -->
+
         <TextView
             android:id="@+id/titulo_text_view"
-            android:layout_width="356dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="104dp"
+            android:layout_marginTop="150dp"
             android:text="APLICACIÓN DE GESTIÓN DE TIEMPO"
             android:textColor="#002E6D"
-            android:textSize="34sp"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/titulo"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="204dp"
+            android:text="SysTime"
+            android:textColor="#037065"
+            android:textSize="45sp"
             android:textStyle="bold" />
 
         <!-- Imagen de calendario -->
         <ImageView
             android:id="@+id/calendar_image_view"
-            android:layout_width="401dp"
-            android:layout_height="418dp"
+            android:layout_width="301dp"
+            android:layout_height="318dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="220dp"
+            android:layout_marginTop="300dp"
             android:scaleType="fitCenter"
             android:src="@mipmap/ic_logoapp_round" />
 

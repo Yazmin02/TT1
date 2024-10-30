@@ -1,5 +1,7 @@
 package com.example.tt1.tarea
 
+import android.graphics.Color
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,11 +32,20 @@ class TareaAdapter(
         val tarea = tareas[position]
         holder.textTarea.text = tarea.titulo
 
-        // Configurar los clics de los botones
+        // Establecer el estilo según el estado de completitud
+        if (tarea.estado == 1) {
+            holder.textTarea.paintFlags = holder.textTarea.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            holder.textTarea.setTextColor(Color.GRAY)
+        } else {
+            holder.textTarea.paintFlags = holder.textTarea.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+            holder.textTarea.setTextColor(Color.BLACK)
+        }
+
         holder.btnVer.setOnClickListener {
             onVerClick(tarea)
         }
     }
+
 
     override fun getItemCount(): Int {
         return tareas.size
@@ -42,8 +53,9 @@ class TareaAdapter(
 
     // Método para actualizar la lista de tareas
     fun updateTareas(nuevasTareas: List<Tarea>) {
-        tareas.clear()
-        tareas.addAll(nuevasTareas)
+        this.tareas.clear()
+        this.tareas.addAll(nuevasTareas)
         notifyDataSetChanged() // Notifica al adaptador que los datos han cambiado
     }
+
 }

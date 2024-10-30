@@ -53,6 +53,7 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 val intent = Intent(this, ListaEvento::class.java)
                 startActivity(intent)
             }
+
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true

@@ -3,5 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="toolbar_color">#FF000000</color> <!-- Color deseado -->
+    <color name="colorGris">#B0B0B0</color>
+    <color name="colorGrisOscuro">#808080</color>
+    <color name="colorAcento">#82FDF2</color> <!-- Puedes cambiarlo según tu preferencia -->
+
 
 </resources>

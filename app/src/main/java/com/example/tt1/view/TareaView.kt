@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ImageButton
@@ -17,6 +18,7 @@ class TareaView(private val rootView: View) {
     private val descripcionEditText: EditText = rootView.findViewById(R.id.etDescripcion)
     private val fechaEditText: EditText = rootView.findViewById(R.id.et_date)
     private val spinnerCategorias: Spinner = rootView.findViewById(R.id.spinnerEtiqueta)
+    private val botonCompletar: Button = rootView.findViewById(R.id.botonCompletar) // Nuevo botón
 
     fun configurarSpinner(context: Context, categorias: List<String>) {
         val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, categorias)
@@ -53,6 +55,19 @@ class TareaView(private val rootView: View) {
 
     fun setOnGuardarTareaListener(listener: () -> Unit) {
         rootView.findViewById<ImageButton>(R.id.btnGuardarTarea).setOnClickListener {
+            listener()
+        }
+    }
+
+    fun setOnCompletarTareaListener(listener: () -> Unit) {
+        botonCompletar.setOnClickListener {
+            listener()
+        }
+    }
+
+    // Nueva función para configurar el listener de eliminación
+    fun setOnEliminarTareaListener(listener: () -> Unit) {
+        rootView.findViewById<ImageButton>(R.id.botonEliminar).setOnClickListener {
             listener()
         }
     }

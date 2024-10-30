@@ -13,6 +13,7 @@ import com.example.tt1.CalendarActivity
 import com.example.tt1.DatabaseHelper
 import com.example.tt1.PrincipalActivity
 import com.example.tt1.R
+import com.example.tt1.evento.ListaEvento
 import com.example.tt1.model.entidades.Tarea
 import com.example.tt1.model.repositorios.TareaRepository
 import com.google.android.material.navigation.NavigationView
@@ -77,7 +78,7 @@ class ListaActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     }
 
     private fun actualizarListaTareas() {
-        // Actualizar la lista de tareas después de una eliminación
+        // Actualizar la lista de tareas después de una eliminación o modificación
         val tareasActualizadas: MutableList<Tarea> = tareaRepository.obtenerTareas().toMutableList()
         tareaAdapter.updateTareas(tareasActualizadas) // Actualiza la lista en el adaptador
     }
@@ -89,6 +90,12 @@ class ListaActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Actualiza la lista de tareas cada vez que la actividad vuelve a estar en primer plano
+        actualizarListaTareas()
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_calendar -> {
@@ -96,6 +103,11 @@ class ListaActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             }
             R.id.nav_home -> {
                 startActivity(Intent(this, PrincipalActivity::class.java))
+            }
+            R.id.nav_evento -> {
+                // Redirige a la actividad de lista de eventos
+                val intent = Intent(this, ListaEvento::class.java)
+                startActivity(intent)
             }
         }
         findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawer(GravityCompat.START)

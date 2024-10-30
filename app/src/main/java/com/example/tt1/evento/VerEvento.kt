@@ -1,6 +1,7 @@
 package com.example.tt1.evento
 
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -21,6 +22,7 @@ class VerEventoActivity : AppCompatActivity() {
     private lateinit var ubicacionTextView: TextView // Agregado para ubicación
     private lateinit var botonEditar: Button
     private lateinit var botonEliminar: Button
+    private lateinit var botonCompletar: Button // Nuevo botón
     private lateinit var eventoRepository: EventoRepository
     private var idEvento: Int = -1
 
@@ -55,6 +57,8 @@ class VerEventoActivity : AppCompatActivity() {
         ubicacionTextView = findViewById(R.id.ubicacionTextView) // Inicializa el TextView de ubicación
         botonEditar = findViewById(R.id.botonEditar)
         botonEliminar = findViewById(R.id.botonEliminar)
+        botonCompletar = findViewById(R.id.botonCompletar) // Inicializa el nuevo botón
+
     }
 
     private fun configurarEventos() {
@@ -72,7 +76,28 @@ class VerEventoActivity : AppCompatActivity() {
         botonEliminar.setOnClickListener {
             mostrarDialogoConfirmacion()
         }
+
+        botonCompletar.setOnClickListener {
+            marcarEventoComoCompletado()
+        }
     }
+
+    private fun marcarEventoComoCompletado() {
+        if (idEvento != -1) {
+            try {
+                eventoRepository.marcarEventoComoCompleto(idEvento)
+                Toast.makeText(this, "Evento marcado como completado", Toast.LENGTH_SHORT).show()
+                cargarDetallesEvento() // Recarga el evento para mostrar el estado actualizado
+                finish() // Cierra la actividad y regresa a ListaEventoActivity
+            } catch (e: Exception) {
+                mostrarMensajeError("Error al marcar el evento como completado")
+                e.printStackTrace()
+            }
+        } else {
+            mostrarMensajeError("ID de evento no válido")
+        }
+    }
+
 
     private fun cargarDetallesEvento() {
         val evento = eventoRepository.obtenerEventoPorId(idEvento)
@@ -82,6 +107,11 @@ class VerEventoActivity : AppCompatActivity() {
             descripcionTextView.text = evento.descripcion
             fInicioTextView.text = evento.fInicio
             fVencimientoTextView.text = evento.fVencimiento
+
+            if (evento.estado == 1) { // Asumiendo que 1 es el estado completado
+                marcarEventoComoCompletadoVisualmente()
+                botonCompletar.isEnabled = false // Deshabilitar el botón si ya está completada
+            }
 
             // Obtener el nombre de la etiqueta usando el idEtiqueta
             val nombreEtiqueta = eventoRepository.obtenerNombreEtiquetaPorId(evento.idEtiqueta)
@@ -94,6 +124,10 @@ class VerEventoActivity : AppCompatActivity() {
         }
     }
 
+    private fun marcarEventoComoCompletadoVisualmente() {
+        tituloTextView.paintFlags = tituloTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        descripcionTextView.paintFlags = descripcionTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+    }
     private fun mostrarDialogoConfirmacion() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Confirmar eliminación")

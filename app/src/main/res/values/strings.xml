@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TT1</string>
+    <string name="app_name">SysTime</string>
     <string name="bienvenido_a">Bienvenido/a</string>
     <string name="todo">TODO</string>
     <string name="email">Email</string>
@@ -23,8 +23,8 @@
     <string name="mes">MES</string>
     <string name="guardar_tarea" />
     <string name="agregar_tarea">\n</string>
-    <string name="register">\n</string>
-    <string name="bienvenido_a_registro" />
+    <string name="register">Registrarse</string>
+    <string name="Bienvenido">SysTime</string>
     <string name="semana">\n</string>
     <string name="guardar_evento" />
     <string name="google_maps_key">AIzaSyAoGX963jG204l4DLQZNETSCfsXuUOUFTg</string>

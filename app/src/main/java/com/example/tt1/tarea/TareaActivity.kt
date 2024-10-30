@@ -30,6 +30,7 @@ import com.example.tt1.DatabaseHelper
 import com.example.tt1.PrincipalActivity
 import com.example.tt1.R
 import com.example.tt1.ReminderReceiver
+import com.example.tt1.evento.ListaEvento
 import com.example.tt1.model.entidades.Tarea
 import com.google.android.material.navigation.NavigationView
 import java.text.SimpleDateFormat
@@ -226,6 +227,7 @@ class TareaActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             descripcion = descripcion,
             fInicio = formatCalendar(fechaInicioCalendar),
             fVencimiento = formatCalendar(fechaVencimientoCalendar),
+            estado = 0,
             idEtiqueta = idEtiqueta,
             idUsuario = 1
         )
@@ -309,6 +311,16 @@ class TareaActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             }
             R.id.nav_home -> {
                 startActivity(Intent(this, PrincipalActivity::class.java))
+            }
+            R.id.nav_evento -> {
+                // Redirige a la actividad de lista de eventos
+                val intent = Intent(this, ListaEvento::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_evento -> {
+                // Redirige a la actividad de lista de tareas
+                val intent = Intent(this, ListaEvento::class.java)
+                startActivity(intent)
             }
         }
         findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawer(GravityCompat.START)

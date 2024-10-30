@@ -16,6 +16,7 @@ class TareaDao(private val db: SQLiteDatabase) {
                 put("descripcion", tarea.descripcion)
                 put("fInicio", tarea.fInicio)
                 put("fVencimiento", tarea.fVencimiento)
+                put("estado", tarea.estado) // Agregar el estado
                 put("idEtiqueta", tarea.idEtiqueta)
                 put("idUsuario", tarea.idUsuario) // Asegúrate de incluir idUsuario
             }
@@ -43,7 +44,8 @@ class TareaDao(private val db: SQLiteDatabase) {
                         descripcion = cursor.getString(cursor.getColumnIndexOrThrow("descripcion")),
                         fInicio = cursor.getString(cursor.getColumnIndexOrThrow("fInicio")),
                         fVencimiento = cursor.getString(cursor.getColumnIndexOrThrow("fVencimiento")),
-                        idEtiqueta = cursor.getInt(cursor.getColumnIndexOrThrow("idEtiqueta")),
+                        estado = cursor.getInt(cursor.getColumnIndexOrThrow("estado")),
+                                idEtiqueta = cursor.getInt(cursor.getColumnIndexOrThrow("idEtiqueta")),
                         idUsuario = cursor.getInt(cursor.getColumnIndexOrThrow("idUsuario"))
                     )
                     tareas.add(tarea)

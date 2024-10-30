@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tt1.R
-import com.example.tt1.model.repositorios.TareaRepository
-import com.example.tt1.model.entidades.Tarea
 import com.example.tt1.model.TareaModel
+import com.example.tt1.model.entidades.Tarea
+import com.example.tt1.model.repositorios.TareaRepository
 import com.example.tt1.view.TareaView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +17,8 @@ class TareaController(private val tareaRepository: TareaRepository) : AppCompatA
 
     private lateinit var tareaView: TareaView
     private val tareaModel = TareaModel()
+    private lateinit var tarea: Tarea // Define la tarea que se va a editar/completar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +35,9 @@ class TareaController(private val tareaRepository: TareaRepository) : AppCompatA
 
         // Configura el listener para el botón de guardar tarea
         tareaView.setOnGuardarTareaListener { guardarTarea() }
+
+        tareaView.setOnCompletarTareaListener { completarTarea() }
+
     }
 
     private fun guardarTarea() {
@@ -47,7 +52,7 @@ class TareaController(private val tareaRepository: TareaRepository) : AppCompatA
         // Lógica para validar datos y guardar la tarea
         if (titulo.isNotEmpty() && descripcion.isNotEmpty() && fecha.isNotEmpty()) {
             // Crea la tarea
-            val tarea = Tarea(0, titulo, descripcion, fecha, fecha, idEtiqueta, idUsuario)
+            val tarea = Tarea(0, titulo, descripcion, fecha, fecha, 0, idEtiqueta, idUsuario)
 
             // Guardado asíncrono
             CoroutineScope(Dispatchers.IO).launch {
@@ -59,6 +64,18 @@ class TareaController(private val tareaRepository: TareaRepository) : AppCompatA
         } else {
             // Muestra mensaje de error
             Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun completarTarea() {
+        // Crea una copia de la tarea con el estado actualizado
+        val tareaCompletada = tarea.copy(estado = 1) // Suponiendo que 1 indica que la tarea está completada
+
+        CoroutineScope(Dispatchers.IO).launch {
+            tareaRepository.actualizarTarea(tareaCompletada)
+            withContext(Dispatchers.Main) {
+                Toast.makeText(this@TareaController, "Tarea completada", Toast.LENGTH_SHORT).show()
+                finish() // Cierra la actividad o redirige según sea necesario
+            }
         }
     }
 }

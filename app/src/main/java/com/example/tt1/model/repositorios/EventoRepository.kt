@@ -19,6 +19,7 @@ class EventoRepository(private val dbHelper: DatabaseHelper) {
             put("fVencimiento", evento.fVencimiento)
             put("lugar", evento.lugar)
             put("idEtiqueta", evento.idEtiqueta)
+            put("estado", evento.estado) // Asegúrate de incluir el estado
         }
 
         val newRowId = db.insert("Evento", null, values)
@@ -54,8 +55,9 @@ class EventoRepository(private val dbHelper: DatabaseHelper) {
             val fVencimiento = cursor.getString(cursor.getColumnIndex("fVencimiento"))
             val idEtiqueta = cursor.getInt(cursor.getColumnIndex("idEtiqueta"))
             val lugar = cursor.getString(cursor.getColumnIndex("lugar"))
+            val estado = cursor.getInt(cursor.getColumnIndex("estado")) // Obteniendo el estado
 
-            val evento = Evento(id, titulo, descripcion, fInicio, fVencimiento, idEtiqueta, idUsuario = 1, lugar)
+            val evento = Evento(id, titulo, descripcion, fInicio, fVencimiento, estado, idEtiqueta, idUsuario = 1, lugar)
             eventos.add(evento)
         }
 
@@ -84,8 +86,9 @@ class EventoRepository(private val dbHelper: DatabaseHelper) {
             val fVencimiento = cursor.getString(cursor.getColumnIndex("fVencimiento"))
             val idEtiqueta = cursor.getInt(cursor.getColumnIndex("idEtiqueta"))
             val lugar = cursor.getString(cursor.getColumnIndex("lugar"))
+            val estado = cursor.getInt(cursor.getColumnIndex("estado"))
 
-            Evento(id, titulo, descripcion, fInicio, fVencimiento, idEtiqueta, idUsuario = 1, lugar)
+            Evento(id, titulo, descripcion, fInicio, fVencimiento, estado, idEtiqueta, idUsuario = 1, lugar)
         } else {
             null
         }.also {
@@ -116,6 +119,8 @@ class EventoRepository(private val dbHelper: DatabaseHelper) {
             put("fInicio", evento.fInicio)
             put("fVencimiento", evento.fVencimiento)
             put("idEtiqueta", evento.idEtiqueta)
+            put("estado", evento.estado) // Asegúrate de incluir el estado
+
         }
 
         val updatedRows = db.update("Evento", values, "idEvento = ?", arrayOf(evento.idEvento.toString()))
@@ -130,6 +135,23 @@ class EventoRepository(private val dbHelper: DatabaseHelper) {
         db.close()
     }
 
+    fun marcarEventoComoCompleto(id: Int) {
+        val db: SQLiteDatabase = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put("estado", 1) // Cambiar estado a completada
+        }
+
+        val updatedRows = db.update("Evento", values, "idEvento = ?", arrayOf(id.toString()))
+
+        if (updatedRows > 0) {
+            Log.d("EventoRepository", "Evento marcado como completado: ID = $id")
+        } else {
+            Log.e("EventoRepository", "Error al marcar el evento como completado: ID = $id")
+            throw Exception("Error al marcar el evento como completado")
+        }
+
+        db.close()
+    }
     fun obtenerNombreEtiquetaPorId(idEtiqueta: Int): String? {
         val db: SQLiteDatabase = dbHelper.readableDatabase
 

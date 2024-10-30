@@ -32,6 +32,7 @@ import com.example.tt1.PrincipalActivity
 import com.example.tt1.R
 import com.example.tt1.ReminderReceiver
 import com.example.tt1.model.entidades.Evento
+import com.example.tt1.tarea.ListaActivity
 import com.google.android.material.navigation.NavigationView
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -225,6 +226,7 @@ class EventoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             descripcion = descripcion,
             fInicio = formatCalendar(fechaInicioCalendar),
             fVencimiento = formatCalendar(fechaVencimientoCalendar),
+            estado = 0,
             idEtiqueta = idEtiqueta,
             idUsuario = 1,
             lugar = lugar
@@ -270,6 +272,11 @@ class EventoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             }
             R.id.nav_calendar -> {
                 startActivity(Intent(this, CalendarActivity::class.java))
+            }
+            R.id.nav_task -> {
+                // Redirige a la actividad de lista de tareas
+                val intent = Intent(this, ListaActivity::class.java)
+                startActivity(intent)
             }
             // Otras opciones del menú
         }

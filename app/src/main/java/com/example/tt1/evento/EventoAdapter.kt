@@ -1,5 +1,7 @@
 package com.example.tt1.evento
 
+import android.graphics.Color
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +33,14 @@ class EventoAdapter(
         val evento = eventos[position]
         holder.textEvento.text = evento.titulo
 
+        // Establecer el estilo según el estado de completitud
+        if (evento.estado == 1) {
+            holder.textEvento.paintFlags = holder.textEvento.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            holder.textEvento.setTextColor(Color.GRAY)
+        } else {
+            holder.textEvento.paintFlags = holder.textEvento.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+            holder.textEvento.setTextColor(Color.BLACK)
+        }
         // Configurar los clics de los botones
         holder.btnVer.setOnClickListener {
             onVerClick(evento)

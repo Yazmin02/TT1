@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tt1.R
-import com.example.tt1.model.entidades.Evento
 import com.example.tt1.model.EventoModel
+import com.example.tt1.model.entidades.Evento
 import com.example.tt1.model.repositorios.EventoRepository
 import com.example.tt1.view.EventoView
 import kotlinx.coroutines.CoroutineScope
@@ -17,6 +17,8 @@ class EventoController(private val eventoRepository: EventoRepository) : AppComp
 
     private lateinit var eventoView: EventoView
     private val eventoModel = EventoModel()
+    private lateinit var evento: Evento // Define la tarea que se va a editar/completar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +35,23 @@ class EventoController(private val eventoRepository: EventoRepository) : AppComp
 
         // Configura el listener para el botón de guardar evento
         eventoView.setOnGuardarEventoListener { guardarEvento() }
+
+        eventoView.setOnCompletarEventoListener { completarEvento() }
+
+    }
+
+    private fun completarEvento() {
+            // Crea una copia de la tarea con el estado actualizado
+            val eventoCompletado = evento.copy(estado = 1) // Suponiendo que 1 indica que la tarea está completada
+
+            CoroutineScope(Dispatchers.IO).launch {
+                eventoRepository.actualizarEvento(eventoCompletado)
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@EventoController, "Evento completado", Toast.LENGTH_SHORT).show()
+                    finish() // Cierra la actividad o redirige según sea necesario
+                }
+            }
+
     }
 
     private fun guardarEvento() {
@@ -48,7 +67,7 @@ class EventoController(private val eventoRepository: EventoRepository) : AppComp
         // Lógica para validar datos y guardar la tarea
         if (titulo.isNotEmpty() && descripcion.isNotEmpty() && fecha.isNotEmpty()) {
             // Crea la tarea
-            val evento = Evento(0, titulo, descripcion, fecha, fecha, idEtiqueta ,idUsuario, lugar)
+            val evento = Evento(0, titulo, descripcion, fecha, fecha,0, idEtiqueta ,idUsuario, lugar)
 
             // Guardado asíncrono
             CoroutineScope(Dispatchers.IO).launch {

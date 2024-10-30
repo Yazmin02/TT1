@@ -18,6 +18,7 @@ class TareaRepository(private val dbHelper: DatabaseHelper) {
             put("fInicio", tarea.fInicio)
             put("fVencimiento", tarea.fVencimiento)
             put("idEtiqueta", tarea.idEtiqueta)
+            put("estado", tarea.estado) // Asegúrate de incluir el estado
         }
 
         val newRowId = db.insert("Tarea", null, values)
@@ -34,15 +35,7 @@ class TareaRepository(private val dbHelper: DatabaseHelper) {
     @SuppressLint("Range")
     fun obtenerTareas(): List<Tarea> {
         val db: SQLiteDatabase = dbHelper.readableDatabase
-        val cursor: Cursor = db.query(
-            "Tarea",
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        )
+        val cursor: Cursor = db.query("Tarea", null, null, null, null, null, null)
         val tareas = mutableListOf<Tarea>()
 
         while (cursor.moveToNext()) {
@@ -52,8 +45,9 @@ class TareaRepository(private val dbHelper: DatabaseHelper) {
             val fInicio = cursor.getString(cursor.getColumnIndex("fInicio"))
             val fVencimiento = cursor.getString(cursor.getColumnIndex("fVencimiento"))
             val idEtiqueta = cursor.getInt(cursor.getColumnIndex("idEtiqueta"))
+            val estado = cursor.getInt(cursor.getColumnIndex("estado")) // Obteniendo el estado
 
-            val tarea = Tarea(id, titulo, descripcion, fInicio, fVencimiento, idEtiqueta, idUsuario = 1)
+            val tarea = Tarea(id, titulo, descripcion, fInicio, fVencimiento, estado, idEtiqueta, idUsuario = 1)
             tareas.add(tarea)
         }
 
@@ -65,15 +59,7 @@ class TareaRepository(private val dbHelper: DatabaseHelper) {
     @SuppressLint("Range")
     fun obtenerTareaPorId(id: Int): Tarea? {
         val db: SQLiteDatabase = dbHelper.readableDatabase
-        val cursor: Cursor = db.query(
-            "Tarea",
-            null,
-            "idTarea=?",
-            arrayOf(id.toString()),
-            null,
-            null,
-            null
-        )
+        val cursor: Cursor = db.query("Tarea", null, "idTarea=?", arrayOf(id.toString()), null, null, null)
 
         return if (cursor.moveToFirst()) {
             val titulo = cursor.getString(cursor.getColumnIndex("titulo"))
@@ -81,8 +67,9 @@ class TareaRepository(private val dbHelper: DatabaseHelper) {
             val fInicio = cursor.getString(cursor.getColumnIndex("fInicio"))
             val fVencimiento = cursor.getString(cursor.getColumnIndex("fVencimiento"))
             val idEtiqueta = cursor.getInt(cursor.getColumnIndex("idEtiqueta"))
+            val estado = cursor.getInt(cursor.getColumnIndex("estado"))
 
-            Tarea(id, titulo, descripcion, fInicio, fVencimiento, idEtiqueta, idUsuario = 1)
+            Tarea(id, titulo, descripcion, fInicio, fVencimiento, estado, idEtiqueta, idUsuario = 1)
         } else {
             null
         }.also {
@@ -90,14 +77,14 @@ class TareaRepository(private val dbHelper: DatabaseHelper) {
         }
     }
 
-    fun eliminarTarea(id: Int) {
+    fun eliminarTarea(idTarea: Int) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
-        val deletedRows = db.delete("Tarea", "idTarea = ?", arrayOf(id.toString()))
+        val deletedRows = db.delete("Tarea", "idTarea = ?", arrayOf(idTarea.toString()))
 
         if (deletedRows > 0) {
-            Log.d("TareaRepository", "Tarea eliminada con éxito: ID = $id")
+            Log.d("TareaRepository", "Tarea eliminada con éxito: ID = $idTarea")
         } else {
-            Log.e("TareaRepository", "Error al eliminar la tarea: ID = $id")
+            Log.e("TareaRepository", "Error al eliminar la tarea: ID = $idTarea")
             throw Exception("Error al eliminar la tarea")
         }
 
@@ -113,6 +100,7 @@ class TareaRepository(private val dbHelper: DatabaseHelper) {
             put("fInicio", tarea.fInicio)
             put("fVencimiento", tarea.fVencimiento)
             put("idEtiqueta", tarea.idEtiqueta)
+            put("estado", tarea.estado) // Asegúrate de incluir el estado
         }
 
         val updatedRows = db.update("Tarea", values, "idTarea = ?", arrayOf(tarea.id.toString()))
@@ -126,6 +114,25 @@ class TareaRepository(private val dbHelper: DatabaseHelper) {
 
         db.close()
     }
+
+    fun marcarTareaComoCompleta(id: Int) {
+        val db: SQLiteDatabase = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put("estado", 1) // Cambiar estado a completada
+        }
+
+        val updatedRows = db.update("Tarea", values, "idTarea = ?", arrayOf(id.toString()))
+
+        if (updatedRows > 0) {
+            Log.d("TareaRepository", "Tarea marcada como completada: ID = $id")
+        } else {
+            Log.e("TareaRepository", "Error al marcar la tarea como completada: ID = $id")
+            throw Exception("Error al marcar la tarea como completada")
+        }
+
+        db.close()
+    }
+
     fun obtenerNombreEtiquetaPorId(idEtiqueta: Int): String? {
         val db: SQLiteDatabase = dbHelper.readableDatabase
 
@@ -138,6 +145,4 @@ class TareaRepository(private val dbHelper: DatabaseHelper) {
         cursor.close()
         return nombre
     }
-
-
 }

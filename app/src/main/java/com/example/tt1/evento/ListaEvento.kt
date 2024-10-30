@@ -16,6 +16,7 @@ import com.example.tt1.PrincipalActivity
 import com.example.tt1.R
 import com.example.tt1.model.entidades.Evento
 import com.example.tt1.model.repositorios.EventoRepository
+import com.example.tt1.tarea.ListaActivity
 import com.google.android.material.navigation.NavigationView
 
 
@@ -91,6 +92,11 @@ class ListaEvento : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             actualizarListaEventos() // Actualiza la lista al volver de VerTareaActivity
         }
     }
+    override fun onResume() {
+        super.onResume()
+        // Actualiza la lista de tareas cada vez que la actividad vuelve a estar en primer plano
+        actualizarListaEventos()
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -99,6 +105,11 @@ class ListaEvento : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             }
             R.id.nav_home -> {
                 startActivity(Intent(this, PrincipalActivity::class.java))
+            }
+            R.id.nav_task -> {
+                // Redirige a la actividad de lista de tareas
+                val intent = Intent(this, ListaActivity::class.java)
+                startActivity(intent)
             }
         }
         findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawer(GravityCompat.START)

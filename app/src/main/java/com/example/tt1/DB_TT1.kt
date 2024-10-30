@@ -13,7 +13,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
 ) {
     companion object {
         private const val DATABASE_NAME = "DB_TT1.db"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -60,6 +60,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
             fInicio DATE NOT NULL,
             fVencimiento DATE NOT NULL,
             lugar TEXT NOT NULL,
+            estado INTEGER NOT NULL DEFAULT 0,
             idEtiqueta INTEGER NOT NULL,
             FOREIGN KEY (idEtiqueta) REFERENCES Etiqueta (idEtiqueta)
         ); 
@@ -107,12 +108,17 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
             descripcion TEXT,
             fInicio DATE NOT NULL,
             fVencimiento DATE NOT NULL,
+            estado INTEGER NOT NULL DEFAULT 0,
             idUsuario INTEGER NOT NULL,
             idEtiqueta INTEGER NOT NULL,
             FOREIGN KEY (idEtiqueta) REFERENCES Etiqueta (idEtiqueta)
+            
         ); 
+        
     """.trimIndent()
+
         )
+
 
         db.execSQL(
             """ 

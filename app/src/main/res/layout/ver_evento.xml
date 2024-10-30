@@ -103,14 +103,21 @@
         android:layout_height="wrap_content"
         android:textSize="16sp" />
 
+    <Button
+        android:id="@+id/botonCompletar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#3EB898"
+        android:text="Marcar como Completado" />
+
     <!-- Botón de Editar -->
     <Button
         android:id="@+id/botonEditar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Editar Evento"
+        android:text="Editar evento"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@android:color/holo_blue_dark"
+        android:backgroundTint="#6CD2F4"
         android:textColor="@android:color/white" />
 
     <!-- Botón de Eliminar -->
@@ -118,9 +125,9 @@
         android:id="@+id/botonEliminar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Eliminar Evento"
+        android:text="Eliminar evento"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@android:color/holo_red_dark"
+        android:backgroundTint="#E38282"
         android:textColor="@android:color/white" />
 
 </LinearLayout>

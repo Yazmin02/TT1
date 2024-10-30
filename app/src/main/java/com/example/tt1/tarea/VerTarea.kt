@@ -1,6 +1,7 @@
 package com.example.tt1.tarea
 
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -21,6 +22,7 @@ class VerTareaActivity : AppCompatActivity() {
     private lateinit var etiquetaTextView: TextView
     private lateinit var botonEditar: Button
     private lateinit var botonEliminar: Button
+    private lateinit var botonCompletar: Button // Nuevo botón
     private lateinit var tareaRepository: TareaRepository
     private var tareaId: Int = -1
 
@@ -54,6 +56,7 @@ class VerTareaActivity : AppCompatActivity() {
         etiquetaTextView = findViewById(R.id.etiquetaTextView)
         botonEditar = findViewById(R.id.botonEditar)
         botonEliminar = findViewById(R.id.botonEliminar)
+        botonCompletar = findViewById(R.id.botonCompletar) // Inicializa el nuevo botón
     }
 
     private fun configurarEventos() {
@@ -71,51 +74,71 @@ class VerTareaActivity : AppCompatActivity() {
         botonEliminar.setOnClickListener {
             mostrarDialogoConfirmacion()
         }
-    }
 
-    private fun cargarDetallesTarea() {
-        val tarea = tareaRepository.obtenerTareaPorId(tareaId)
-        Log.d("VerTareaActivity", "ID de la tarea: $tareaId") // Añadir log para verificar el ID
-
-        if (tarea != null) {
-            tituloTextView.text = tarea.titulo
-            descripcionTextView.text = tarea.descripcion
-            fInicioTextView.text = tarea.fInicio
-            fVencimientoTextView.text = tarea.fVencimiento
-            val nombreEtiqueta = tareaRepository.obtenerNombreEtiquetaPorId(tarea.idEtiqueta)
-            etiquetaTextView.text = nombreEtiqueta ?: "Etiqueta no encontrada"
-        } else {
-            mostrarMensajeError("No se encontró la tarea")
+        botonCompletar.setOnClickListener {
+            marcarTareaComoCompletada()
         }
     }
 
-
-    private fun mostrarDialogoConfirmacion() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Confirmar eliminación")
-            .setMessage("¿Estás seguro de que deseas eliminar esta tarea?")
-            .setPositiveButton("Eliminar") { _, _ ->
-                eliminarTarea()
-            }
-            .setNegativeButton("Cancelar", null)
-            .show()
-    }
-
-    private fun eliminarTarea() {
+    private fun marcarTareaComoCompletada() {
         if (tareaId != -1) {
             try {
-                tareaRepository.eliminarTarea(tareaId) // Elimina la tarea por su ID
-                Toast.makeText(this, "Tarea eliminada con éxito", Toast.LENGTH_SHORT).show()
-                setResult(RESULT_OK) // Establece el resultado OK
-                finish() // Cierra la actividad actual y vuelve a la anterior
+                tareaRepository.marcarTareaComoCompleta(tareaId)
+                Toast.makeText(this, "Tarea marcada como completada", Toast.LENGTH_SHORT).show()
+                cargarDetallesTarea() // Recarga la tarea para mostrar el estado actualizado
             } catch (e: Exception) {
-                mostrarMensajeError("Error al eliminar la tarea")
+                mostrarMensajeError("Error al marcar la tarea como completada")
                 e.printStackTrace()
             }
         } else {
             mostrarMensajeError("ID de tarea no válido")
         }
     }
+
+    private fun cargarDetallesTarea() {
+        val tarea = tareaRepository.obtenerTareaPorId(tareaId)
+        if (tarea != null) {
+            tituloTextView.text = tarea.titulo
+            descripcionTextView.text = tarea.descripcion
+            fInicioTextView.text = tarea.fInicio
+            fVencimientoTextView.text = tarea.fVencimiento
+            etiquetaTextView.text = tareaRepository.obtenerNombreEtiquetaPorId(tarea.idEtiqueta).toString()
+
+            // Marcar el texto como completado si la tarea está completada
+            if (tarea.estado == 1) { // Asumiendo que 1 es el estado completado
+                marcarTareaComoCompletadaVisualmente()
+                botonCompletar.isEnabled = false // Deshabilitar el botón si ya está completada
+            }
+        } else {
+            mostrarMensajeError("Tarea no encontrada")
+        }
+    }
+
+    private fun marcarTareaComoCompletadaVisualmente() {
+        tituloTextView.paintFlags = tituloTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        descripcionTextView.paintFlags = descripcionTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+    }
+
+    private fun mostrarDialogoConfirmacion() {
+        AlertDialog.Builder(this)
+            .setTitle("Eliminar Tarea")
+            .setMessage("¿Estás seguro de que deseas eliminar esta tarea?")
+            .setPositiveButton("Eliminar") { _, _ -> eliminarTarea() }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun eliminarTarea() {
+        Log.d("VerTareaActivity", "Eliminando tarea con ID: $tareaId") // Log para verificar el ID
+        try {
+            tareaRepository.eliminarTarea(tareaId)
+            Toast.makeText(this, "Tarea eliminada con éxito", Toast.LENGTH_SHORT).show()
+            finish() // Regresar a la lista de tareas
+        } catch (e: Exception) {
+            mostrarMensajeError("Error al eliminar la tarea: ${e.message}")
+        }
+    }
+
 
     private fun mostrarMensajeError(mensaje: String) {
         Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
