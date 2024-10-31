@@ -31,6 +31,8 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".PrincipalActivity" />
         <activity android:name=".CalendarActivity" />
+        <activity android:name=".SemanaActivity" />
+        <activity android:name=".DiaActivity" />
         <activity android:name=".tarea.TareaActivity" />
         <activity android:name=".tarea.ListaActivity"/>
         <receiver android:name=".ReminderReceiver" />

@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
-    <!-- Contenido principal -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,12 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#B1DAEC"
-            app:title="Calendario"
+            app:title="Día"
             app:titleTextColor="#FFFFFF"
             android:elevation="4dp"
             app:navigationIcon="@drawable/ic_menu" />
 
-        <!-- Selector de vista: Mes, Semana, Día -->
+        <!-- Selector de vista -->
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,7 +36,7 @@
                 android:orientation="horizontal"
                 android:gravity="center">
 
-                <!-- Opción MES -->
+                <!-- Opciones de visualización -->
                 <TextView
                     android:id="@+id/view_selector_mes"
                     android:layout_width="wrap_content"
@@ -51,7 +50,6 @@
                     android:gravity="center"
                     android:layout_marginEnd="20dp" />
 
-                <!-- Opción SEMANA -->
                 <TextView
                     android:id="@+id/view_selector_semana"
                     android:layout_width="wrap_content"
@@ -65,7 +63,6 @@
                     android:gravity="center"
                     android:layout_marginEnd="20dp" />
 
-                <!-- Opción DÍA -->
                 <TextView
                     android:id="@+id/view_selector_dia"
                     android:layout_width="wrap_content"
@@ -80,37 +77,72 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <!-- Calendario -->
-        <CalendarView
-            android:id="@+id/calendar_view"
+        <!-- Título del día -->
+        <TextView
+            android:id="@+id/day_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:text="Lunes 02 de septiembre del 2024"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#080265"
             android:layout_marginTop="16dp" />
 
-        <!-- Lista de Tareas del Día Seleccionado -->
+        <!-- Navegación entre días -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/previous_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Anterior"
+                android:textColor="#080265"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/next_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Siguiente"
+                android:textColor="#080265"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Lista de tareas del día -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_tareas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="16dp" />
 
-        <!-- Lista de Eventos del Día Seleccionado -->
+        <!-- Lista de eventos del día -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_eventos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="16dp" />
 
-        <!-- Botón para agregar eventos -->
+        <!-- Botón de agregar evento -->
         <Button
             android:id="@+id/add_event_button"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="73dp"
+            android:layout_height="73dp"
             android:layout_gravity="bottom|end"
             android:layout_margin="20dp"
             android:background="@drawable/ic_add"
-            android:elevation="6dp" />
+            android:padding="12dp"
+            android:textColor="#0000"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <!-- Menú lateral -->
@@ -120,4 +152,5 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/drawer_menu" />
+
 </androidx.drawerlayout.widget.DrawerLayout>

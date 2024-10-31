@@ -47,16 +47,12 @@ class ListaActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 val intent = Intent(this, VerTareaActivity::class.java)
                 intent.putExtra("idTarea", tarea.id) // Pasar el ID de la tarea
                 startActivityForResult(intent, REQUEST_CODE_VER_TAREA) // Usar startActivityForResult
-            },
-            onEditarClick = { tarea ->
-                // Implementa la acción de edición aquí si es necesario
-            },
-            onEliminarClick = { tarea ->
-                // Eliminar la tarea usando su ID
-                tareaRepository.eliminarTarea(tarea.id)
-                actualizarListaTareas() // Llama para actualizar la lista después de eliminar
             }
-        )
+        ) { tarea ->
+            // Eliminar la tarea usando su ID
+            tareaRepository.eliminarTarea(tarea.id)
+            actualizarListaTareas() // Llama para actualizar la lista después de eliminar
+        }
 
         recyclerView.adapter = tareaAdapter
     }

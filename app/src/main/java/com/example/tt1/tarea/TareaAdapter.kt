@@ -14,7 +14,6 @@ import com.example.tt1.model.entidades.Tarea
 class TareaAdapter(
     private val tareas: MutableList<Tarea>, // Cambiado a MutableList
     private val onVerClick: (Tarea) -> Unit,
-    private val onEditarClick: (Tarea) -> Unit,
     private val onEliminarClick: (Tarea) -> Unit
 ) : RecyclerView.Adapter<TareaAdapter.TareaViewHolder>() {
 
@@ -44,6 +43,7 @@ class TareaAdapter(
         holder.btnVer.setOnClickListener {
             onVerClick(tarea)
         }
+
     }
 
 
