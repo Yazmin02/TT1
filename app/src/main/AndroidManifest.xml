@@ -43,6 +43,8 @@
         <activity android:name=".evento.VerEventoActivity"/>
         <activity android:name=".evento.EditarEvento"/>
         <activity android:name=".MapActivity"/>
+        <activity android:name=".RecompensasActivity"/>
+
 
 
         <meta-data

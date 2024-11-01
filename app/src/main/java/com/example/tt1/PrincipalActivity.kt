@@ -53,6 +53,11 @@ class PrincipalActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 val intent = Intent(this, ListaEvento::class.java)
                 startActivity(intent)
             }
+            R.id.nav_logros -> {
+                // Redirige a la actividad de lista de tareas
+                val intent = Intent(this, RecompensasActivity::class.java)
+                startActivity(intent)
+            }
 
         }
         drawerLayout.closeDrawer(GravityCompat.START)

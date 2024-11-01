@@ -13,7 +13,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
 ) {
     companion object {
         private const val DATABASE_NAME = "DB_TT1.db"
-        private const val DATABASE_VERSION = 2
+        private const val DATABASE_VERSION = 3
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -133,6 +133,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         ); 
     """.trimIndent()
         )
+        insertarLogros(db)  // Llamada para insertar logros iniciales
+
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
@@ -155,6 +157,31 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
                     put("nombre", etiqueta.second)      // Nombre de la etiqueta
                 }
                 db.insert("Etiqueta", null, contentValues)
+            }
+            db.setTransactionSuccessful()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            db.endTransaction()
+        }
+    }
+    private fun insertarLogros(db: SQLiteDatabase) {
+        val logros = listOf(
+            Pair(1, "Inicio de Sesión Exitoso"),
+            Pair(2, "Primera Tarea Completada"),
+            Pair(3, "Primer Evento Completado"),
+            Pair(4, "Creador de Tareas"), // Por crear tres tareas
+            Pair(5, "Organizador de Eventos") // Por crear tres eventos
+        )
+
+        db.beginTransaction()
+        try {
+            for (logro in logros) {
+                val contentValues = ContentValues().apply {
+                    put("idLogro", logro.first) // ID específico
+                    put("Nombre", logro.second) // Nombre del logro
+                }
+                db.insert("Logro", null, contentValues)
             }
             db.setTransactionSuccessful()
         } catch (e: Exception) {

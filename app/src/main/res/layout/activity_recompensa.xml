@@ -1,18 +1,61 @@
-<!-- activity_recompensa.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent">
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="0dp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#B1DAEC"
+        app:title="Logros"
+        app:titleTextColor="#FFFFFF"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentInsetStart="0dp"
+        android:contentInsetEnd="0dp"
+        app:navigationIcon="@drawable/ic_menu" />
 
     <TextView
         android:id="@+id/tvPuntosTotales"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Puntos Totales:"
+        android:text="Puntos Totales: 0"
         android:textSize="18sp"
-        android:layout_marginBottom="16dp" />
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tvNivelUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nivel: Principiante en Organización"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="center_horizontal" />
+
+    <ProgressBar
+        android:id="@+id/progresoSiguienteLogro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0"
+        style="?android:attr/progressBarStyleHorizontal"/>
+
+
 
     <TextView
         android:id="@+id/tvLogros"
@@ -20,11 +63,23 @@
         android:layout_height="wrap_content"
         android:text="Logros:"
         android:textSize="18sp"
+        android:textStyle="bold"
         android:layout_marginBottom="8dp" />
 
-    <ListView
-        android:id="@+id/lvLogros"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvLogros"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 </LinearLayout>
+
+    <!-- Menú lateral (NavigationView) -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#FFFFFF"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu" />
+</androidx.drawerlayout.widget.DrawerLayout>

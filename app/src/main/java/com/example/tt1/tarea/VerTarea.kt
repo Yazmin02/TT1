@@ -11,7 +11,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tt1.DatabaseHelper
 import com.example.tt1.R
+import com.example.tt1.RecompensasActivity
+import com.example.tt1.model.RecompensaModel
 import com.example.tt1.model.repositorios.TareaRepository
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class VerTareaActivity : AppCompatActivity() {
 
@@ -31,6 +36,7 @@ class VerTareaActivity : AppCompatActivity() {
         setContentView(R.layout.ver_tarea)
 
         inicializarVistas()
+        tareaRepository = TareaRepository(DatabaseHelper(this))
         tareaRepository = TareaRepository(DatabaseHelper(this))
 
         // Obtener el ID de la tarea del Intent
@@ -83,9 +89,34 @@ class VerTareaActivity : AppCompatActivity() {
     private fun marcarTareaComoCompletada() {
         if (tareaId != -1) {
             try {
+                // Marca la tarea como completa en la base de datos
                 tareaRepository.marcarTareaComoCompleta(tareaId)
-                Toast.makeText(this, "Tarea marcada como completada", Toast.LENGTH_SHORT).show()
-                cargarDetallesTarea() // Recarga la tarea para mostrar el estado actualizado
+
+                // Obtén el ID del usuario (actualiza según tu implementación)
+                val idUsuario = 1
+
+                // Obtén la fecha límite de la tarea y la fecha de completado
+                val tarea = tareaRepository.obtenerTareaPorId(tareaId)
+                if (tarea != null) {
+                    val fechaLimite = tarea.fVencimiento.toDateInMillis()
+                    val fechaCompletada = System.currentTimeMillis()
+
+                    // Asigna puntos basados en la diferencia de fechas
+                    val recompensaModel = RecompensaModel(this)
+                    recompensaModel.asignarPuntosPorTarea(fechaLimite, fechaCompletada, idUsuario)
+
+                    // Verifica logros después de completar la tarea
+                    recompensaModel.verificarLogros(idUsuario)
+
+                    Toast.makeText(this, "Tarea completada. ¡Puntos asignados!", Toast.LENGTH_SHORT).show()
+
+                    // Redirige a RecompensasActivity para ver los puntos y logros actualizados
+                    val intent = Intent(this, RecompensasActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    mostrarMensajeError("Error al obtener detalles de la tarea")
+                }
             } catch (e: Exception) {
                 mostrarMensajeError("Error al marcar la tarea como completada")
                 e.printStackTrace()
@@ -94,6 +125,18 @@ class VerTareaActivity : AppCompatActivity() {
             mostrarMensajeError("ID de tarea no válido")
         }
     }
+
+
+
+    private fun String.toDateInMillis(): Long {
+        val formatoFecha = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return try {
+            formatoFecha.parse(this)?.time ?: System.currentTimeMillis()
+        } catch (e: ParseException) {
+            System.currentTimeMillis()
+        }
+    }
+
 
     private fun cargarDetallesTarea() {
         val tarea = tareaRepository.obtenerTareaPorId(tareaId)

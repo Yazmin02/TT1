@@ -15,7 +15,4 @@ class RecompensaController(context: Context) {
         return recompensaModel.getLogros(idUsuario)
     }
 
-    fun agregarRecompensa(puntos: Int, idLogro: Int, idUsuario: Int) {
-        recompensaModel.agregarRecompensa(puntos, idLogro, idUsuario)
-    }
 }
